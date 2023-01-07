@@ -1,9 +1,10 @@
 import { Body, Controller, Delete, Get, HttpException, Param, Patch, Post, Request, UseGuards } from "@nestjs/common";
 import { User } from "./users.model";
 import { UsersService } from "./users.service";
-import { ApiBearerAuth } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { AccessTokenGuard } from "src/guards/access-token.guard";
 
+@ApiTags('User API')
 @Controller('user')
 export class UsersController {
     constructor(private readonly usersService: UsersService) { }
@@ -11,6 +12,7 @@ export class UsersController {
     // route to get your informations
     @UseGuards(AccessTokenGuard)
     @ApiBearerAuth('acces-token')
+    @ApiOperation({ summary: 'Get user with bearer token' })
     @Get()
     async findByEmail(@Request() req) {
         console.log(req.user);
@@ -23,6 +25,7 @@ export class UsersController {
     // route to patch your informations
     @UseGuards(AccessTokenGuard)
     @ApiBearerAuth('acces-token')
+    @ApiOperation({ summary: 'Patch user with bearer token' })
     @Patch()
     update(@Request() req, @Body() updateUserDto: User) {
         return this.usersService.update(req.user.email, updateUserDto);
@@ -31,6 +34,7 @@ export class UsersController {
     // route to delete your account
     @UseGuards(AccessTokenGuard)
     @ApiBearerAuth('acces-token')
+    @ApiOperation({ summary: 'Delete user with bearer token' })
     @Delete()
     remove(@Request() req) {
         return this.usersService.remove(req.user.email);

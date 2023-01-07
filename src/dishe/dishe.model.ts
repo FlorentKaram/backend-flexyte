@@ -1,13 +1,16 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 
-export type DisheDocument = DisheModel & Document;
+export type DisheDocument = Dishe & Document;
 
 @Schema()
-export class DisheModel{
+export class Dishe{
 
     @Prop({required: true})
     name: string;
+
+    @Prop({required: true})
+    available: boolean;
 
     @Prop({required: true})
     description: string;
@@ -47,4 +50,4 @@ export class DisheModel{
 
 }
 
-export const DisheSchema = SchemaFactory.createForClass(DisheModel);
+export const DisheSchema = SchemaFactory.createForClass(Dishe);
