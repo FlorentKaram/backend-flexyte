@@ -15,8 +15,6 @@ export class UsersController {
     @ApiOperation({ summary: 'Get user with bearer token' })
     @Get()
     async findByEmail(@Request() req) {
-        console.log(req.user);
-        
         let user = await this.usersService.findOneByEmail(req.user.email);
         user.password = null;
         return user;

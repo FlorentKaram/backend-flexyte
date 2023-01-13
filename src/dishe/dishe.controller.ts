@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Patch, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
 import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { AccessTokenGuard } from "src/guards/access-token.guard";
 import { Dishe } from "./dishe.model";
@@ -11,7 +11,7 @@ export class DisheController{
 
     @ApiOperation({ summary: 'Get dishe by his id' })
     @Get(':id')
-    async getOne(id: string){
+    async getOne(@Param('id') id: string){
         return this.disheService.getOne(id);
     }
 
@@ -33,15 +33,16 @@ export class DisheController{
     @ApiBearerAuth('acces-token')
     @ApiOperation({ summary: 'Update dishe by is id' })
     @Patch(':id')
-    async update(id: string, @Body() dishe: Dishe){
+    async update(@Param('id') id: string, @Body() dishe: Dishe){
         return this.disheService.update(id, dishe);
     }
+
 
     @UseGuards(AccessTokenGuard)
     @ApiBearerAuth('acces-token')
     @ApiOperation({ summary: 'Delete dishe by his id' })
     @Delete(':id')
-    async delete(id: string){
+    async delete(@Param('id') id: string){
         return this.disheService.delete(id);
     }
 }
