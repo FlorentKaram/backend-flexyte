@@ -24,9 +24,9 @@ async function bootstrap() {
       skipUndefinedProperties: false
     }
   ));
-
+  app.setGlobalPrefix('backendFlexyte/')
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('backendFlexyte/' + 'api', app, document);
 
   await app.listen(3000);
   console.log('Swagger running on http://localhost:3000/api/');
