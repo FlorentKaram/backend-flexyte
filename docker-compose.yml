@@ -1,0 +1,43 @@
+version: '3.9'
+services:
+  backend-flexyte:
+    container_name: backend-flexyte
+    image: ghcr.io/florentkaram/backend-flexyte/backend-flexyte:latest
+    restart: unless-stopped
+    command: npm run start:prod
+    labels:
+      traefik.enable: true
+      traefik.http.routers.backend-flexyte.entrypoints: websecure
+      traefik.http.routers.backend-flexyte.tls: true
+      traefik.http.routers.backend-flexyte.rule: (Host(`sample-restaurant.com`) || Host(`www.sample-restaurant.com`))  && PathPrefix(`/backendFlexyte/`)
+    ports:
+      - 3002:3000
+    networks:
+      - backend-flexyte
+      
+  mongodb-flexyte:
+    image: mongo:latest
+    container_name: mongodb-flexyte
+    restart: unless-stopped
+    ports:
+      - 27019:27017
+    labels:
+      traefik.enable: true
+      traefik.tcp.routers.mongodb-flexyte.rule: HostSNI(`*`)
+      traefik.tcp.routers.mongodb-flexyte.entrypoints: mongodbflexyte
+
+
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - ./mongodb-data:/data/db
+    networks:
+      - backend-flexyte
+    
+volumes:
+  mongodb-data:
+    name: mongodb-data
+networks:
+  backend-flexyte:
+    external : true
