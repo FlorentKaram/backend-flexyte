@@ -7,9 +7,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { TemplatesModule } from './extentions/templates/templates.module';
 import { DisheModule } from './extentions/dishes/dishes.module';
-import { log } from 'console';
 
-console.log("saluuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuut : : : :" + process.env.DB_URL);
+
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -22,4 +21,8 @@ console.log("saluuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuut : : : :" + process.env.DB_U
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(){
+    console.log("saluuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuut : : : :" + process.env.DB_URL);
+  }
+}
