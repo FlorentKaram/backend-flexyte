@@ -8,7 +8,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     // swagger title
-    .setTitle('Starker API')
+    .setTitle('Flexyte API')
     // swagger description
     .addBearerAuth({
       type: 'http', scheme: 'bearer', bearerFormat: 'JWT'

@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDefined, IsEmail, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsDefined, IsEmail, IsNotEmpty, IsNumber, IsString, MaxLength, MinLength } from 'class-validator';
 
 export type UserDocument = User & Document;
 
@@ -14,18 +14,18 @@ export class User {
     @IsDefined()
     @Prop({ required: true, unique: true })
     email: string;
-    
-    @IsString()
-    @IsNotEmpty()
-    @ApiProperty()
-    @Prop()
-    firstname: string;
 
     @IsString()
     @IsNotEmpty()
     @ApiProperty()
+    @Prop({required: true, unique: true})
+    companyName: string;
+
+    @IsNumber()
+    @IsNotEmpty()
+    @ApiProperty()
     @Prop()
-    lastname: string;
+    companyId: number;
 
     @IsString()
     @IsNotEmpty()

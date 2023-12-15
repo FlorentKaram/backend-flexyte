@@ -5,18 +5,17 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
-import { DisheModule } from './dishe/dishe.module';
-import { ReservationModule } from './reservation/reservation.module';
-
+import { TemplatesModule } from './extentions/templates/templates.module';
+import { DisheModule } from './extentions/dishes/dishes.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    MongooseModule.forRoot( process.env.DB_URL || "mongodb://localhost:27017/Restaurant" ),
+    MongooseModule.forRoot( process.env.DB_URL || "mongodb://localhost:27017/flexyte" ),
     AuthModule, 
     UsersModule,
-    DisheModule,
-    ReservationModule
+    TemplatesModule,
+    DisheModule
   ],
   controllers: [AppController],
   providers: [AppService],

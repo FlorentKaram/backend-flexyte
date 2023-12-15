@@ -17,7 +17,7 @@ export class AuthService {
 
     async signUp(createUser: User): Promise<any> {
         const newUser = await this.usersService.create(createUser);
-        const tokens = await this.getTokens(newUser.email, newUser.firstname);
+        const tokens = await this.getTokens(newUser.email, newUser.companyName);
         return tokens;
     }
 
@@ -29,7 +29,7 @@ export class AuthService {
             throw new BadRequestException('Password is incorrect');
         }
 
-        const tokens = await this.getTokens(user.email, user.firstname);
+        const tokens = await this.getTokens(user.email, user.companyName);
         return tokens;
     }
 
@@ -37,12 +37,12 @@ export class AuthService {
         return this.bcrypt.hashSync(data);
     }
 
-    async getTokens(email: string, firstname: string) {
+    async getTokens(email: string, name: string) {
         const [accessToken, refreshToken] = await Promise.all([
             this.jwtService.signAsync(
                 {
                     email: email,
-                    firstname: firstname,
+                    companyName: name,
                 },
                 {
                     secret: jwtConstants.secret,
@@ -52,7 +52,7 @@ export class AuthService {
             this.jwtService.signAsync(
                 {
                     email: email,
-                    firstname: firstname,
+                    companyName: name,
                 },
                 {
                     secret: jwtConstants.secret,
@@ -69,7 +69,7 @@ export class AuthService {
         if (!user) {
             throw new ForbiddenException('Access Denied');
         } 
-        const tokens = await this.getTokens(user.email, user.firstname);        
+        const tokens = await this.getTokens(user.email, user.companyName);        
         return tokens;
     }
 }
