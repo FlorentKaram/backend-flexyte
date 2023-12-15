@@ -7,7 +7,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { TemplatesModule } from './extentions/templates/templates.module';
 import { DisheModule } from './extentions/dishes/dishes.module';
+import { log } from 'console';
 
+console.log("saluuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuut : : : :" + process.env.DB_URL);
 @Module({
   imports: [
     ConfigModule.forRoot(),
