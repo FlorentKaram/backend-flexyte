@@ -1,19 +1,17 @@
 import { Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
-import { Dishe } from "./dishes.model";
 import { DisheDto } from "./dto/dishes.dto";
+import { DishesDataGateway } from "./interface/dishes.interface";
 
 @Injectable()
 export class DisheService {
-    constructor(@InjectModel('dishe') private readonly disheModel: Model<Dishe>) { }
+    constructor(private dishesDataGateway: DishesDataGateway) { }
 
     async getAll(email: string) {
-        return await this.disheModel.find({email: email}); 
+        return await this.dishesDataGateway.getAllDishes(email);
     }
 
     async getOne(id: string) {
-        let dishe = await this.disheModel.findById(id);
+        let dishe = await this.dishesDataGateway.getOneDishe(id);
         if (!dishe) {
             throw new NotFoundException('Dishe not found');
         }
@@ -22,11 +20,11 @@ export class DisheService {
 
     async create(email: string, dishe: DisheDto) {
         dishe.email = email;
-        return this.disheModel.create(dishe);
+        return this.dishesDataGateway.createDishe(dishe);
     }
 
     async update(email:string, id: string, dishe: DisheDto) {
-        let dishetoUpdate = await this.disheModel.findById(id);
+        let dishetoUpdate = await this.dishesDataGateway.getOneDishe(id);
         if(dishetoUpdate.email != email){
             throw new UnauthorizedException('you cannot modify other users dishes')
         }
@@ -38,18 +36,18 @@ export class DisheService {
                 dishetoUpdate[key] = dishe[key];
             }
         }
-        return dishetoUpdate.save();
+        return this.dishesDataGateway.saveDishe(dishetoUpdate);
     }
 
     async delete(email:string, id: string) {
-        let dishetoDelete = await this.disheModel.findById(id);
+        let dishetoDelete = await this.dishesDataGateway.getOneDishe(id);
         if(dishetoDelete.email != email){
             throw new UnauthorizedException('you cannot delete other users dishes')
         }
-        if(!await this.disheModel.findById(id)){
+        if(!await this.dishesDataGateway.getOneDishe(id)){
             throw new NotFoundException('Dishe not found');
         }
-        return this.disheModel.findByIdAndDelete(id);
+        return this.dishesDataGateway.findAndDeleteDishe(id);
     }
 
 }

@@ -3,13 +3,17 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { DisheController } from "./dishes.controller";
 import { DisheSchema } from "./dishes.model";
 import { DisheService } from "./dishes.service";
+import { DishesDataGateway } from "./interface/dishes.interface";
+import { MongooseDishes } from "./services/mongoose-dishes.service";
 
 
 
 @Module({
-    imports: [MongooseModule.forFeature([{ name : "dishe" , schema: DisheSchema }])],
+    imports: [
+        MongooseModule.forFeature([{ name : "dishe" , schema: DisheSchema }])
+    ],
     controllers: [DisheController],
-    providers: [DisheService]
+    providers: [DisheService, {provide: DishesDataGateway, useClass: MongooseDishes}]
 })
 export class DisheModule{
 
