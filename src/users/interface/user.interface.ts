@@ -10,7 +10,7 @@ export abstract class UserDataGateway {
 
     updateUser: (email: string, user: User) => Promise<User>;
 
-    deleteUserById: (id: string) => Promise<User>;
+    deleteUserByEmail: (email: string) => Promise<User>;
 
     saveUser: (userModel: User) => Promise<User>;
 }

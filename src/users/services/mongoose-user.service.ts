@@ -24,8 +24,8 @@ export class MongooseUser implements UserDataGateway {
         return this.userModel.findOneAndUpdate({ email: email }, user);
     };
     
-    deleteUserById = async (id: string) => {
-        return this.userModel.findByIdAndDelete(id);
+    deleteUserByEmail = async (email: string) => {
+        return this.userModel.findOneAndDelete({email: email});
     };
 
     saveUser = async (user: HydratedDocument<User>) => {

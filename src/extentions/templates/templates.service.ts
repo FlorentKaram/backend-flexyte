@@ -1,22 +1,20 @@
 import { HttpException, HttpStatus, Injectable, NotFoundException } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
-import { Template } from "./templates.model";
 import { TemplateDto } from "./dto/template.dto";
+import { TemplateDataGateway } from "./interface/templates.interface";
 
 
 @Injectable()
 export class TemplatesService {
 
-    constructor(@InjectModel('templates') private readonly templateModel: Model<Template>) { }
+    constructor(private templateDataGateway: TemplateDataGateway) { }
 
     // create a new template
     async initUserTemplate(email: string) {
-        return this.templateModel.create({email: email, templateNumber: 0});
+        return this.templateDataGateway.createTemplate(email, 0);
     }
 
     async updateTemplate(email: string, template: TemplateDto) {
-        let temp = await this.templateModel.findOne({email: email});
+        let temp = await this.templateDataGateway.findOneTemplate(email);
 
         for (const [key, value] of Object.entries(template)) {
             if(value){
@@ -24,20 +22,14 @@ export class TemplatesService {
             }
         }
 
-        return temp.save();
+        return this.templateDataGateway.saveTemplate(temp);
     }
 
     async getTemplate(email: string){
-        let temp = await this.templateModel.findOne({email: email});
+        let temp = await this.templateDataGateway.findOneTemplate(email);
         if(!temp){
             throw new NotFoundException();
         }
-
         return temp;
-    }
-
-    async deleteTemplate(email: string){
-        const template = await this.templateModel.deleteOne({email: email});
-        return template;
     }
 }

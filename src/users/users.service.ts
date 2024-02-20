@@ -4,6 +4,7 @@ import { TemplatesService } from "src/extentions/templates/templates.service";
 import { UpdateUserDto } from "./dto/updateUser.dto";
 import { UpdatePassword } from "./dto/updatePassword.dto";
 import { UserDataGateway } from "./interface/user.interface";
+import { TemplateDataGateway } from "src/extentions/templates/interface/templates.interface";
 
 
 @Injectable()
@@ -11,7 +12,7 @@ export class UsersService {
     saltOrRounds = 10;
     bcrypt = require('bcryptjs');
 
-    constructor(private userDataGateway: UserDataGateway, private templateService: TemplatesService) {
+    constructor(private userDataGateway: UserDataGateway, private templateDataGateway: TemplateDataGateway, private templateService: TemplatesService) {
         this.bcrypt.genSaltSync(this.saltOrRounds);
     }
 
@@ -88,8 +89,8 @@ export class UsersService {
         if (!user) {
             throw new NotFoundException('User not found');
         }
-        let result = await this.userDataGateway.getUserByEmail(email);
-        this.templateService.deleteTemplate(email);
+        let result = await this.userDataGateway.deleteUserByEmail(email);
+        await this.templateDataGateway.deleteTemplate(email);
         this.hidePassword(result);
         return result;
     }
