@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable, NotFoundException } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { TemplateDto } from "./dto/template.dto";
 import { TemplateDataGateway } from "./interface/templates.interface";
 

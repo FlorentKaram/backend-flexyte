@@ -10,7 +10,7 @@ import { MongooseDishes } from "./services/mongoose-dishes.service";
 
 @Module({
     imports: [
-        MongooseModule.forFeature([{ name : "dishe" , schema: DisheSchema }])
+        MongooseModule.forFeature([{ name : "dishes" , schema: DisheSchema }])
     ],
     controllers: [DisheController],
     providers: [DisheService, {provide: DishesDataGateway, useClass: MongooseDishes}]
