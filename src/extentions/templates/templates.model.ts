@@ -9,7 +9,7 @@ export class Template {
     @Prop({required: true, unique: true})
     email: string;
 
-    @Prop({required: true, unique: true, default: 0})
+    @Prop({required: true, default: 0})
     templateNumber: number;
 
     @Prop()

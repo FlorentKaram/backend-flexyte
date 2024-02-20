@@ -1,10 +1,9 @@
 import { HttpException, HttpStatus, Injectable, NotFoundException } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
 import { User } from "./users.model";
 import { TemplatesService } from "src/extentions/templates/templates.service";
 import { UpdateUserDto } from "./dto/updateUser.dto";
 import { UpdatePassword } from "./dto/updatePassword.dto";
+import { UserDataGateway } from "./interface/user.interface";
 
 
 @Injectable()
@@ -12,29 +11,43 @@ export class UsersService {
     saltOrRounds = 10;
     bcrypt = require('bcryptjs');
 
-    constructor(@InjectModel('users') private readonly userModel: Model<User>, private templateService: TemplatesService) {
+    constructor(private userDataGateway: UserDataGateway, private templateService: TemplatesService) {
         this.bcrypt.genSaltSync(this.saltOrRounds);
     }
 
-    // create a new user and set his admin field to false
+    // create new user
     async create(user: User) {
+        
+        // check if the email and the company name already exist
         await this.emailAlreadyExist(user.email);
         await this.nameAlreadyExist(user.companyName);
-        const newUser = new this.userModel(user);
+        
+        // create a new user
+        const newUser = this.userDataGateway.createUser(user);
 
+        // check if the password length is greater than 7
         if (newUser.password.length < 7) {
             throw new HttpException('the minimum of characters is 7', HttpStatus.UNPROCESSABLE_ENTITY);
         }
+
+        // hash the password
         newUser.password = await this.bcrypt.hashSync(newUser.password, this.saltOrRounds)
-        let result = await newUser.save();
-        this.templateService.initUserTemplate(user.email);
+
+        // save the user in the database
+        let result = await this.userDataGateway.saveUser(newUser);
+
+        // hide the password
         this.hidePassword(result);
+
+        // create a template for the user
+        this.templateService.initUserTemplate(user.email);
+
         return result;
     }
 
-    // methode which return a user by his email
+
     async findOneByEmail(email: string) {
-        const user = await this.userModel.findOne({ email: email });
+        const user = await this.userDataGateway.getUserByEmail(email);
         if (!user) {
             throw new NotFoundException('User not found');
         }
@@ -49,33 +62,33 @@ export class UsersService {
         if(name != user.name){
             await this.nameAlreadyExist(user.name)
         }
-        const user_update = await this.userModel.findOne({ email: email });
+        const user_update = await this.userDataGateway.getUserByEmail(email);
         if (!user_update) {
             throw new NotFoundException('User not found');
         }
-        let result = await this.userModel.findOneAndUpdate({ email: email }, user);
+        let result = await this.userDataGateway.updateUser(email, user_update);
         this.hidePassword(result);
         return result;
     }
 
     async updatePassword(email: string, updatePassword: UpdatePassword){
-        const user = await this.userModel.findOne({ email: email });
+        const user = await this.userDataGateway.getUserByEmail(email);
         if (!user) {
             throw new NotFoundException('User not found');
         }
         user.password = await this.hashData(updatePassword.password);
-        await user.save();
+        this.userDataGateway.saveUser(user);
         user.password = "";
         return user;
     }
 
     // methode to remove a user by his email
     async remove(email: string) {
-        const user = await this.userModel.findOne({ email: email });
+        const user = await this.userDataGateway.getUserByEmail(email);
         if (!user) {
             throw new NotFoundException('User not found');
         }
-        let result = await this.userModel.findByIdAndDelete(user.id);
+        let result = await this.userDataGateway.getUserByEmail(email);
         this.templateService.deleteTemplate(email);
         this.hidePassword(result);
         return result;
@@ -85,9 +98,10 @@ export class UsersService {
     async createFirstUser() {
         let password = await this.bcrypt.hashSync(process.env.ROOT_USER_PASSWORD || "string", this.saltOrRounds);
 
-        this.userModel.create({
+        this.userDataGateway.createAndSaveUser({
             email: process.env.ROOT_USER || "string@string.fr",
-            name: "admin",
+            companyName: "admin",
+            companyId: 0,
             password: password,
             isAdmin: true
         })
@@ -96,18 +110,19 @@ export class UsersService {
     }
 
     async emailAlreadyExist(email: string) {
-        const user = await this.userModel.findOne({ email: email });
+        const user = await this.userDataGateway.getUserByEmail(email);
         if (user) {
             throw new HttpException('User already exist', HttpStatus.CONFLICT);
         }
     }
 
     async nameAlreadyExist(name: string) {
-        const user = await this.userModel.findOne({ name: name });
+        const user = await this.userDataGateway.getUserByEmail(name);
         if (user) {
             throw new HttpException('Name already exist', HttpStatus.CONFLICT);
         }
     }
+
     async hidePassword(user: User) {
         user.password = null;
         return user;

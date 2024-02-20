@@ -24,7 +24,7 @@ export class User {
     @IsNumber()
     @IsNotEmpty()
     @ApiProperty()
-    @Prop()
+    @Prop({required: true})
     companyId: number;
 
     @IsString()

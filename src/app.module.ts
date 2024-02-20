@@ -22,7 +22,5 @@ import { DisheModule } from './extentions/dishes/dishes.module';
   providers: [AppService],
 })
 export class AppModule {
-  constructor(){
-    console.log("saluuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuut : : : :" + process.env.DB_URL);
-  }
+  constructor(){}
 }

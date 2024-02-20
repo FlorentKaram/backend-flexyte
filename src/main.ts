@@ -24,11 +24,11 @@ async function bootstrap() {
       skipUndefinedProperties: false
     }
   ));
-  app.setGlobalPrefix('backendFlexyte/')
+  app.setGlobalPrefix('backendFlexyte/');
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('backendFlexyte/' + 'api', app, document);
 
   await app.listen(3000);
-  console.log('Swagger running on http://localhost:3000/api/');
+  console.log('Swagger running on http://localhost:3000/backendFlexyte/api/');
 }
 bootstrap();

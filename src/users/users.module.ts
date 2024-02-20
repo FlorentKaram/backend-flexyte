@@ -4,6 +4,8 @@ import { UsersService } from './users.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './users.model';
 import { TemplatesModule } from 'src/extentions/templates/templates.module';
+import { MongooseUser } from './services/mongoose-user.service';
+import { UserDataGateway } from './interface/user.interface';
 
 
 @Module({
@@ -11,7 +13,7 @@ import { TemplatesModule } from 'src/extentions/templates/templates.module';
     MongooseModule.forFeature([{ name : "users" , schema: UserSchema }]),
     TemplatesModule
   ],
-  providers: [UsersService],
+  providers: [UsersService, { provide: UserDataGateway, useClass: MongooseUser }],
   controllers: [UsersController],
   exports: [UsersService]
 })
