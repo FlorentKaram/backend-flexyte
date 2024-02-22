@@ -4,6 +4,11 @@ import { Request } from 'express';
 import { Injectable } from '@nestjs/common';
 import { jwtConstants } from '../constant';
 
+type JwtPayload = {
+  email: string;
+  username: string;
+};
+
 @Injectable()
 export class RefreshTokenStrategy extends PassportStrategy(
   Strategy,
@@ -12,13 +17,11 @@ export class RefreshTokenStrategy extends PassportStrategy(
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: jwtConstants.secret,
-      passReqToCallback: true,
+      secretOrKey: jwtConstants.secretRefresh
     });
   }
 
-  validate(req: Request, payload: any) {
-    const refreshToken = req.get('Authorization').replace('Bearer', '').trim();
-    return { ...payload, refreshToken };
+  validate(payload: JwtPayload) {
+    return payload;
   }
 }

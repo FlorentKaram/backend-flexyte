@@ -55,7 +55,7 @@ export class AuthService {
                     email: email,
                 },
                 {
-                    secret: jwtConstants.secret,
+                    secret: jwtConstants.secretRefresh,
                     expiresIn: '30d',
                 },
             ),
