@@ -5,7 +5,6 @@ import { AuthService } from './auth.service';
 import { loginUserDTO } from './dto/login-user.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { RefreshTokenGuard } from '../guards/refresh-token.guard';
-import { log } from 'console';
 
 
 @ApiTags('Auth')

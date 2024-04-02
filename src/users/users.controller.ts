@@ -1,5 +1,4 @@
-import { Body, Controller, Delete, Get, HttpException, Param, Patch, Post, Request, UseGuards } from "@nestjs/common";
-import { User } from "./users.model";
+import { Body, Controller, Delete, Get, Patch, Request, UseGuards } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { AccessTokenGuard } from "src/guards/access-token.guard";

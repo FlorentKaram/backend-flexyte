@@ -5,7 +5,10 @@ import { jwtConstants } from '../constant';
 
 type JwtPayload = {
   email: string;
-  username: string;
+  companyName: string;
+  isAdmin: boolean;
+  iat: number;
+  exp: number;
 };
 
 @Injectable()

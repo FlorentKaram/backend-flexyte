@@ -3,10 +3,12 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Request } from 'express';
 import { Injectable } from '@nestjs/common';
 import { jwtConstants } from '../constant';
+import { log } from 'console';
 
 type JwtPayload = {
   email: string;
-  username: string;
+  iat: number;
+  exp: number;
 };
 
 @Injectable()

@@ -6,16 +6,12 @@ import { AccessTokenStrategy } from './strategies/access-token.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { UsersModule } from 'src/users/users.module';
 import { AuthController } from './auth.controller';
-import { jwtConstants } from './constant';
 
 @Module({
   controllers: [AuthController],
   imports: [
     PassportModule,
-    JwtModule.register({
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: '15m' },
-    }),
+    JwtModule,
     UsersModule
   ],
   providers: [AuthService,AccessTokenStrategy, RefreshTokenStrategy],
