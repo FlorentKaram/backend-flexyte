@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/users/users.model';
 import { loginUserDTO } from './dto/login-user.dto';
 import { jwtConstants } from './constant';
+import { CreateUserDto } from 'src/users/dto/createUser.dto';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +16,7 @@ export class AuthService {
         this.bcrypt.genSaltSync(this.saltOrRounds);
     }
 
-    async signUp(createUser: User): Promise<any> {
+    async signUp(createUser: CreateUserDto): Promise<any> {
         const newUser = await this.usersService.create(createUser);
         const tokens = await this.getTokens(newUser.email, newUser.companyName, newUser.isAdmin);
         return tokens;

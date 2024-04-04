@@ -5,6 +5,7 @@ import { UpdateUserDto } from "./dto/updateUser.dto";
 import { UpdatePassword } from "./dto/updatePassword.dto";
 import { UserDataGateway } from "./interface/user.interface";
 import { TemplateDataGateway } from "src/extentions/templates/interface/templates.interface";
+import { CreateUserDto } from "./dto/createUser.dto";
 
 
 @Injectable()
@@ -17,7 +18,7 @@ export class UsersService {
     }
 
     // create new user
-    async create(user: User) {
+    async create(user: CreateUserDto) {
         
         // check if the email and the company name already exist
         await this.emailAlreadyExist(user.email);
@@ -56,12 +57,12 @@ export class UsersService {
     }
 
     // methode to update a user
-    async update(email: string, name: string, user: UpdateUserDto) {
+    async update(email: string, companyName: string, user: UpdateUserDto) {
         if (email != user.email) {
             await this.emailAlreadyExist(user.email);
         }
-        if(name != user.name){
-            await this.nameAlreadyExist(user.name)
+        if(companyName != user.companyName){
+            await this.nameAlreadyExist(user.companyName)
         }
         const user_update = await this.userDataGateway.getUserByEmail(email);
         if (!user_update) {
@@ -102,8 +103,21 @@ export class UsersService {
         this.userDataGateway.createAndSaveUser({
             email: process.env.ROOT_USER || "string@string.fr",
             companyName: "admin",
+            companyDescription: "test",
             companyId: 0,
             password: password,
+            streetAddress1: "azertyuiop",
+            streetAddress2: "",
+
+            zipCode: "aze",
+            pickedTemplate: 0,
+            mondayFromTo : [],
+            tuesdayFromTo: [],
+            wednesdayFromTo: [],
+            thursdayFromTo: [],
+            fridayFromTo: [],
+            saturdayFromTo: [],
+            sundayFromTo: [],
             isAdmin: true
         })
             .then(() => console.log("Root user has been created"))
@@ -120,7 +134,7 @@ export class UsersService {
     async nameAlreadyExist(name: string) {
         const user = await this.userDataGateway.getUserByEmail(name);
         if (user) {
-            throw new HttpException('Name already exist', HttpStatus.CONFLICT);
+            throw new HttpException('Company name already exist', HttpStatus.CONFLICT);
         }
     }
 

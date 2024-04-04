@@ -27,7 +27,7 @@ export class UsersController {
     @ApiOperation({ summary: 'Patch user' })
     @Patch()
     update(@Request() req, @Body() updateUserDto: UpdateUserDto) {
-        return this.usersService.update(req.user.email, req.user.name, updateUserDto);
+        return this.usersService.update(req.user.email, req.user.companyName, updateUserDto);
     }
 
     // route to patch password

@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { loginUserDTO } from './dto/login-user.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { RefreshTokenGuard } from '../guards/refresh-token.guard';
+import { CreateUserDto } from 'src/users/dto/createUser.dto';
 
 
 @ApiTags('Auth')
@@ -14,7 +15,7 @@ export class AuthController {
 
     @ApiOperation({ summary: 'Create account and login' })
     @Post('signup')
-    signup(@Body() createUserDto: User) {
+    signup(@Body() createUserDto: CreateUserDto) {
         return this.authService.signUp(createUserDto);
     }
 

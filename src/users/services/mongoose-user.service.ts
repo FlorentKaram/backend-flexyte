@@ -3,6 +3,7 @@ import { UserDataGateway } from "../interface/user.interface";
 import { User } from "../users.model";
 import { InjectModel } from "@nestjs/mongoose";
 import { Injectable } from "@nestjs/common";
+import { CreateUserDto } from "../dto/createUser.dto";
 
 @Injectable()
 export class MongooseUser implements UserDataGateway {
@@ -12,11 +13,11 @@ export class MongooseUser implements UserDataGateway {
         return this.userModel.findOne({ email: email });
     };
 
-    createUser = (user: User) => {
+    createUser = (user: CreateUserDto) => {
         return new this.userModel(user);
     };
 
-    createAndSaveUser = async (user: User) => {
+    createAndSaveUser = async (user: CreateUserDto) => {
         return this.userModel.create(user);
     };
 

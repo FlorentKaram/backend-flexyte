@@ -1,12 +1,13 @@
 import { Model } from "mongoose";
 import { User } from "../users.model";
+import { CreateUserDto } from "../dto/createUser.dto";
 
 export abstract class UserDataGateway {
     getUserByEmail: (email: string) => Promise<User>;
 
-    createUser: (user: User) => User;
+    createUser: (user: CreateUserDto) => User;
 
-    createAndSaveUser: (user: User) => Promise<User>;
+    createAndSaveUser: (user: CreateUserDto) => Promise<User>;
 
     updateUser: (email: string, user: User) => Promise<User>;
 

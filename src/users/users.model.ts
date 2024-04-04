@@ -4,37 +4,62 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsDefined, IsEmail, IsNotEmpty, IsNumber, IsString, MaxLength, MinLength } from 'class-validator';
 
 export type UserDocument = User & Document;
-
 @Schema()
 export class User {
 
-    @IsEmail()
-    @IsNotEmpty()
-    @ApiProperty()
-    @IsDefined()
     @Prop({ required: true, unique: true })
     email: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @ApiProperty()
-    @Prop({required: true, unique: true})
+    @Prop({ required: true, unique: true })
     companyName: string;
 
-    @IsNumber()
-    @IsNotEmpty()
-    @ApiProperty()
-    @Prop({required: true})
+    @Prop({ required: true })
     companyId: number;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(7)
-    @MaxLength(40)
-    @IsDefined()
-    @ApiProperty()
     @Prop({ required: true })
     password: string;
+
+    @Prop({ required: true })
+    streetAddress1: string;
+
+    @Prop({ required: true })
+    streetAddress2: string;
+
+    @Prop({ required: true })
+    city: string;
+
+    @Prop({ required: true })
+    state: string;
+
+    @Prop({ required: true })
+    zipCode: string;
+
+    @Prop({ required: true })
+    country: string;
+
+    @Prop({ required: true })
+    pickedTemplate: number;
+
+    @Prop({ required: true })
+    mondayFromTo: Date[];
+
+    @Prop({ required: true })
+    tuesdayFromTo: Date[];
+
+    @Prop({ required: true })
+    wednesdayFromTo: Date[];
+
+    @Prop({ required: true })
+    thursdayFromTo: Date[];
+
+    @Prop({ required: true })
+    fridayFromTo: Date[];
+
+    @Prop({ required: true })
+    saturdayFromTo: Date[];
+
+    @Prop({ required: true })
+    sundayFromTo: Date[];
 
     @Prop({ default: false })
     readonly isAdmin: boolean = false;
