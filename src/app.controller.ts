@@ -7,8 +7,6 @@ import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 export class AppController {
   constructor(private readonly appService: AppService) {}
   
-  @UseGuards(AccessTokenGuard)
-  @ApiBearerAuth('acces-token')
   @ApiOperation({ summary: 'Get data of all extentions' })
   @Get('extentions')
   getExtentions() {
