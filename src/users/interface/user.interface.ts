@@ -1,4 +1,3 @@
-import { Model } from "mongoose";
 import { User } from "../users.model";
 import { CreateUserDto } from "../dto/createUser.dto";
 

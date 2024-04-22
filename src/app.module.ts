@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { TemplatesModule } from './extentions/templates/templates.module';
 import { DisheModule } from './extentions/dishes/dishes.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 
 @Module({
@@ -16,7 +17,7 @@ import { DisheModule } from './extentions/dishes/dishes.module';
     AuthModule, 
     UsersModule,
     TemplatesModule,
-    DisheModule
+    DisheModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -6,6 +6,7 @@ import { UpdatePassword } from "./dto/updatePassword.dto";
 import { UserDataGateway } from "./interface/user.interface";
 import { TemplateDataGateway } from "src/extentions/templates/interface/templates.interface";
 import { CreateUserDto } from "./dto/createUser.dto";
+import { SirenDataGateway } from "./interface/siren.interface";
 
 
 @Injectable()
@@ -13,13 +14,21 @@ export class UsersService {
     saltOrRounds = 10;
     bcrypt = require('bcryptjs');
 
-    constructor(private userDataGateway: UserDataGateway, private templateDataGateway: TemplateDataGateway, private templateService: TemplatesService) {
+    constructor(
+        private userDataGateway: UserDataGateway, 
+        private templateDataGateway: TemplateDataGateway, 
+        private templateService: TemplatesService, 
+        private sirenDataGateway: SirenDataGateway
+        ) {
         this.bcrypt.genSaltSync(this.saltOrRounds);
     }
 
     // create new user
     async create(user: CreateUserDto) {
-        
+        let isSirenValid = await this.sirenDataGateway.checkSiren(user.companyId);
+        if(!isSirenValid){
+            throw new HttpException('Invalid siren',HttpStatus.NOT_FOUND);
+        }
         // check if the email and the company name already exist
         await this.emailAlreadyExist(user.email);
         await this.nameAlreadyExist(user.companyName);
@@ -108,7 +117,7 @@ export class UsersService {
             password: password,
             streetAddress1: "azertyuiop",
             streetAddress2: "",
-
+            state: "France",
             zipCode: "aze",
             pickedTemplate: 0,
             mondayFromTo : [],

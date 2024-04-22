@@ -28,12 +28,6 @@ export class UpdateUserDto {
     @IsNotEmpty()
     @IsDefined()
     @ApiProperty()
-    companyId: number;
-
-    @IsString()
-    @IsNotEmpty()
-    @IsDefined()
-    @ApiProperty()
     streetAddress1: string;
 
     @IsString()

@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
-import { IsArray, IsDefined, IsEmail, IsNotEmpty, IsString, ValidateNested } from "class-validator";
+import { IsArray, IsDefined, IsEmail, IsNotEmpty, IsNumber, IsString, ValidateNested } from "class-validator";
 
 export class CreateUserDto{
     @IsEmail()
@@ -22,7 +22,7 @@ export class CreateUserDto{
     @ApiProperty()
     companyDescription: string;
 
-    @IsString()
+    @IsNumber()
     @IsNotEmpty()
     @IsDefined()
     @ApiProperty()
@@ -55,9 +55,14 @@ export class CreateUserDto{
     @IsNotEmpty()
     @IsDefined()
     @ApiProperty()
+    state: string;
+
+    @IsNumber()
+    @IsNotEmpty()
+    @IsDefined()
+    @ApiProperty()
     pickedTemplate: number;
 
-    @IsString()
     @IsDefined()
     @IsArray()
     @Type(() => Date)
@@ -65,7 +70,6 @@ export class CreateUserDto{
     @ApiProperty()
     mondayFromTo: Date[];
 
-    @IsString()
     @IsDefined()
     @IsArray()
     @Type(() => Date)
@@ -73,7 +77,6 @@ export class CreateUserDto{
     @ApiProperty()
     tuesdayFromTo: Date[];
 
-    @IsString()
     @IsDefined()
     @IsArray()
     @Type(() => Date)
@@ -81,7 +84,6 @@ export class CreateUserDto{
     @ApiProperty()
     wednesdayFromTo: Date[];
 
-    @IsString()
     @IsDefined()
     @IsArray()
     @Type(() => Date)
@@ -89,7 +91,6 @@ export class CreateUserDto{
     @ApiProperty()
     thursdayFromTo: Date[];
 
-    @IsString()
     @IsDefined()
     @IsArray()
     @Type(() => Date)
@@ -97,7 +98,6 @@ export class CreateUserDto{
     @ApiProperty()
     fridayFromTo: Date[];
 
-    @IsString()
     @IsDefined()
     @IsArray()
     @Type(() => Date)
@@ -105,7 +105,6 @@ export class CreateUserDto{
     @ApiProperty()
     saturdayFromTo: Date[];
 
-    @IsString()
     @IsDefined()
     @IsArray()
     @Type(() => Date)
