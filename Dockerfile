@@ -10,7 +10,7 @@ COPY package.json ./
 COPY package-lock.json ./
 
 # Install app dependencies
-RUN npm ci 
+RUN npm install
 
 # Bundle app source
 COPY . .
