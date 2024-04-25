@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
-import { DisheController } from "./dishes.controller";
+import { DishController } from "./dishes.controller";
 import { DisheSchema } from "./dishes.model";
-import { DisheService } from "./dishes.service";
+import { DishService } from "./dishes.service";
 import { DishesDataGateway } from "./interface/dishes.interface";
 import { MongooseDishes } from "./services/mongoose-dishes.service";
 
@@ -10,11 +10,11 @@ import { MongooseDishes } from "./services/mongoose-dishes.service";
 
 @Module({
     imports: [
-        MongooseModule.forFeature([{ name : "dishes" , schema: DisheSchema }])
+        MongooseModule.forFeature([{ name : "dish" , schema: DishSchema }])
     ],
-    controllers: [DisheController],
-    providers: [DisheService, {provide: DishesDataGateway, useClass: MongooseDishes}]
+    controllers: [DishController],
+    providers: [DishService, {provide: DishesDataGateway, useClass: MongooseDishes}]
 })
-export class DisheModule{
+export class DishModule{
 
 }

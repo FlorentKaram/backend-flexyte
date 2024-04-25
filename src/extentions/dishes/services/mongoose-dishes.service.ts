@@ -2,25 +2,25 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { DishesDataGateway } from "../interface/dishes.interface";
 import { InjectModel } from "@nestjs/mongoose";
 import { HydratedDocument, Model } from "mongoose";
-import { Dishe } from "../dishes.model";
+import { Dish } from "../dishes.model";
 
 @Injectable()
 export class MongooseDishes implements DishesDataGateway {
-    constructor(@InjectModel('dishes') private readonly dishesModel: Model<Dishe>) { }
+    constructor(@InjectModel('dishes') private readonly dishesModel: Model<Dish>) { }
 
     getAllDishes = async (email: string) => {
         return this.dishesModel.find({email: email}); 
     }
 
-    getOneDishe = async (id: string) => {
+    getOneDish = async (id: string) => {
         return this.dishesModel.findById(id);
     }
 
-    createDishe = async (dishe: Dishe) => {
+    createDish = async (dishe: Dish) => {
         return this.dishesModel.create(dishe);
     }
 
-    findAndDeleteDishe = async (id: string) => {
+    findAndDeleteDish = async (id: string) => {
         let dishe = await this.dishesModel.findByIdAndDelete(id);
         if (!dishe) {
             throw new NotFoundException('Dishe not found');
@@ -28,7 +28,7 @@ export class MongooseDishes implements DishesDataGateway {
         return dishe;
     }
 
-    saveDishe = async (dishe: HydratedDocument<Dishe>) => {
+    saveDish = async (dishe: HydratedDocument<Dish>) => {
         return dishe.save();
     }
 }

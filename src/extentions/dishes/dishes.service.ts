@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
-import { DisheDto } from "./dto/dishes.dto";
 import { DishesDataGateway } from "./interface/dishes.interface";
+import { DishDto } from "./dto/dish.dto";
 
 @Injectable()
-export class DisheService {
+export class DishService {
     constructor(private dishesDataGateway: DishesDataGateway) { }
 
     async getAll(email: string) {
@@ -11,43 +11,43 @@ export class DisheService {
     }
 
     async getOne(id: string) {
-        let dishe = await this.dishesDataGateway.getOneDishe(id);
-        if (!dishe) {
+        let dish = await this.dishesDataGateway.getOneDish(id);
+        if (!dish) {
             throw new NotFoundException('Dishe not found');
         }
-        return dishe;
+        return dish;
     }
 
-    async create(email: string, dishe: DisheDto) {
-        dishe.email = email;
-        return this.dishesDataGateway.createDishe(dishe);
+    async create(email: string, dish: DishDto) {
+        dish.email = email;
+        return this.dishesDataGateway.createDish(dish);
     }
 
-    async update(email:string, id: string, dishe: DisheDto) {
-        let dishetoUpdate = await this.dishesDataGateway.getOneDishe(id);
-        if(dishetoUpdate.email != email){
+    async update(email:string, id: string, dish: DishDto) {
+        let dishtoUpdate = await this.dishesDataGateway.getOneDish(id);
+        if(dishtoUpdate.email != email){
             throw new UnauthorizedException('you cannot modify other users dishes')
         }
-        if (!dishetoUpdate) {
-            throw new NotFoundException('Dishe not found');
+        if (!dishtoUpdate) {
+            throw new NotFoundException('Dish not found');
         }
-        for (const [key, value] of Object.entries(dishe)) {
+        for (const [key, value] of Object.entries(dish)) {
             if(value){
-                dishetoUpdate[key] = dishe[key];
+                dishtoUpdate[key] = dish[key];
             }
         }
-        return this.dishesDataGateway.saveDishe(dishetoUpdate);
+        return this.dishesDataGateway.saveDish(dishtoUpdate);
     }
 
     async delete(email:string, id: string) {
-        let dishetoDelete = await this.dishesDataGateway.getOneDishe(id);
-        if(dishetoDelete.email != email){
+        let dishtoDelete = await this.dishesDataGateway.getOneDish(id);
+        if(dishtoDelete.email != email){
             throw new UnauthorizedException('you cannot delete other users dishes')
         }
-        if(!await this.dishesDataGateway.getOneDishe(id)){
-            throw new NotFoundException('Dishe not found');
+        if(!await this.dishesDataGateway.getOneDish(id)){
+            throw new NotFoundException('Dish not found');
         }
-        return this.dishesDataGateway.findAndDeleteDishe(id);
+        return this.dishesDataGateway.findAndDeleteDish(id);
     }
 
 }

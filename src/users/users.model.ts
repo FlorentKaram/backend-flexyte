@@ -22,7 +22,7 @@ export class User {
     @Prop({ required: true })
     streetAddress1: string;
 
-    @Prop({ required: true })
+    @Prop()
     streetAddress2: string;
 
     @Prop({ required: true })

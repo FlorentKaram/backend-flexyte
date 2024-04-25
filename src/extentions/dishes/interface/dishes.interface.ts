@@ -1,15 +1,15 @@
-import { Dishe } from "../dishes.model";
+import { Dish } from "../dishes.model";
 
 export abstract class DishesDataGateway {
 
-    getAllDishes: (email: string) => Promise<Dishe[]>;
+    getAllDishes: (email: string) => Promise<Dish[]>;
 
-    getOneDishe: (id: string)=> Promise<Dishe>;
+    getOneDish: (id: string)=> Promise<Dish>;
 
-    createDishe:(dishe: Dishe)=> Promise<Dishe>;
+    createDish:(dish: Dish)=> Promise<Dish>;
 
-    findAndDeleteDishe:(id: string)=> Promise<Dishe>;
+    findAndDeleteDish:(id: string)=> Promise<Dish>;
     
-    saveDishe:(dishe: Dishe)=> Promise<Dishe>;
+    saveDish:(dish: Dish)=> Promise<Dish>;
 
 }
