@@ -13,7 +13,7 @@ export class DishService {
     async getOne(id: string) {
         let dish = await this.dishesDataGateway.getOneDish(id);
         if (!dish) {
-            throw new NotFoundException('Dishe not found');
+            throw new NotFoundException('Dish not found');
         }
         return dish;
     }

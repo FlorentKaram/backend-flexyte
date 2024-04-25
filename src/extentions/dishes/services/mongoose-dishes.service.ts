@@ -16,19 +16,19 @@ export class MongooseDishes implements DishesDataGateway {
         return this.dishesModel.findById(id);
     }
 
-    createDish = async (dishe: Dish) => {
-        return this.dishesModel.create(dishe);
+    createDish = async (dish: Dish) => {
+        return this.dishesModel.create(dish);
     }
 
     findAndDeleteDish = async (id: string) => {
-        let dishe = await this.dishesModel.findByIdAndDelete(id);
-        if (!dishe) {
-            throw new NotFoundException('Dishe not found');
+        let dish = await this.dishesModel.findByIdAndDelete(id);
+        if (!dish) {
+            throw new NotFoundException('Dish not found');
         }
-        return dishe;
+        return dish;
     }
 
-    saveDish = async (dishe: HydratedDocument<Dish>) => {
-        return dishe.save();
+    saveDish = async (dish: HydratedDocument<Dish>) => {
+        return dish.save();
     }
 }

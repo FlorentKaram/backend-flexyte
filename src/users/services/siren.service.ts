@@ -28,8 +28,6 @@ export class SirenApiService implements SirenDataGateway {
         ).subscribe({
             next: (res) => {
                 this.token = 'Bearer ' + res.data.access_token;
-                console.log(this.token);
-                
             }
         })
     };
