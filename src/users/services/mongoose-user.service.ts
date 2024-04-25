@@ -21,6 +21,10 @@ export class MongooseUser implements UserDataGateway {
         return this.userModel.create(user);
     };
 
+    createFirstUser = async (user: User) => {
+        return this.userModel.create(user);
+    };
+
     updateUser = async (email: string, user: User) => {
         return this.userModel.findOneAndUpdate({ email: email }, user);
     };

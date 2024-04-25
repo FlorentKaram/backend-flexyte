@@ -1,4 +1,4 @@
-import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, HttpException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/users/users.model';
@@ -28,6 +28,21 @@ export class AuthService {
 
         if (!await this.bcrypt.compareSync(data.password, user.password)) {
             throw new BadRequestException('Password is incorrect');
+        }
+        
+        const tokens = await this.getTokens(user.email, user.companyName, user.isAdmin);
+        return tokens;
+    }
+
+    async signInAdmin(data: loginUserDTO) {
+        // Check if user exists
+        const user = await this.usersService.findOneByEmail(data.email);
+
+        if (!await this.bcrypt.compareSync(data.password, user.password)) {
+            throw new BadRequestException('Password is incorrect');
+        }
+        if(!user.isAdmin){
+            throw new UnauthorizedException();
         }
         
         const tokens = await this.getTokens(user.email, user.companyName, user.isAdmin);

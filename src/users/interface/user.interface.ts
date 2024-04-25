@@ -8,6 +8,8 @@ export abstract class UserDataGateway {
 
     createAndSaveUser: (user: CreateUserDto) => Promise<User>;
 
+    createFirstUser: (user: User) => Promise<User>;
+
     updateUser: (email: string, user: User) => Promise<User>;
 
     deleteUserByEmail: (email: string) => Promise<User>;

@@ -26,7 +26,6 @@ export class TemplatesController {
     @Get()
     async getTemplate(@Request() req){
         return this.templatesService.getTemplate(req.user.email);
-    }  
-
+    }
 
 }

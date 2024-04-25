@@ -7,6 +7,7 @@ import { UserDataGateway } from "./interface/user.interface";
 import { TemplateDataGateway } from "src/extentions/templates/interface/templates.interface";
 import { CreateUserDto } from "./dto/createUser.dto";
 import { SirenDataGateway } from "./interface/siren.interface";
+import { log } from "console";
 
 
 @Injectable()
@@ -108,11 +109,9 @@ export class UsersService {
     // methode which create the root user if it doesn't exist
     async createFirstUser() {
         let password = await this.bcrypt.hashSync(process.env.ROOT_USER_PASSWORD || "string", this.saltOrRounds);
-
-        this.userDataGateway.createAndSaveUser({
+        let user : User = {
             email: process.env.ROOT_USER || "string@string.fr",
             companyName: "admin",
-            companyDescription: "test",
             companyId: 0,
             password: password,
             streetAddress1: "azertyuiop",
@@ -128,9 +127,12 @@ export class UsersService {
             saturdayFromTo: [],
             sundayFromTo: [],
             isAdmin: true
-        })
-            .then(() => console.log("Root user has been created"))
-            .catch(() => console.log("Root user already existe"));
+        };
+        let res = await this.userDataGateway.createFirstUser(user);
+        console.log(res);
+        
+
+
     }
 
     async emailAlreadyExist(email: string) {

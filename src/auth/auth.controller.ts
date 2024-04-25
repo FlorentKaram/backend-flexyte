@@ -25,6 +25,12 @@ export class AuthController {
         return this.authService.signIn(data);
     }
 
+    @ApiOperation({ summary: 'Login admin' })
+    @Post('signin/admin')
+    signinAdmin(@Body() data: loginUserDTO) {
+        return this.authService.signInAdmin(data);
+    }
+
     @ApiOperation({ summary: 'Refresh token' })
     @UseGuards(RefreshTokenGuard)
     @ApiBearerAuth('acces-token')
