@@ -25,6 +25,7 @@ async function bootstrap() {
     }
   ));
   app.setGlobalPrefix('backendFlexyte/');
+  app.enableCors();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('backendFlexyte/' + 'api', app, document);
 
