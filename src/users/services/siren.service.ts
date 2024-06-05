@@ -3,7 +3,6 @@ import { SirenDataGateway } from "../interface/siren.interface";
 import { HttpService } from "@nestjs/axios";
 import { Cron } from "@nestjs/schedule";
 import { lastValueFrom } from "rxjs";
-import { log } from "console";
 
 @Injectable()
 export class SirenApiService implements SirenDataGateway {
@@ -28,6 +27,9 @@ export class SirenApiService implements SirenDataGateway {
         ).subscribe({
             next: (res) => {
                 this.token = 'Bearer ' + res.data.access_token;
+            },
+            error: (err) => {
+                console.log(err);
             }
         })
     };

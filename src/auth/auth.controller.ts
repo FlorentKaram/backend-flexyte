@@ -6,6 +6,7 @@ import { loginUserDTO } from './dto/login-user.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { RefreshTokenGuard } from '../guards/refresh-token.guard';
 import { CreateUserDto } from 'src/users/dto/createUser.dto';
+import { AccessTokenGuard } from 'src/guards/access-token.guard';
 
 
 @ApiTags('Auth')
@@ -25,12 +26,6 @@ export class AuthController {
         return this.authService.signIn(data);
     }
 
-    @ApiOperation({ summary: 'Login admin' })
-    @Post('signin/admin')
-    signinAdmin(@Body() data: loginUserDTO) {
-        return this.authService.signInAdmin(data);
-    }
-
     @ApiOperation({ summary: 'Refresh token' })
     @UseGuards(RefreshTokenGuard)
     @ApiBearerAuth('acces-token')
@@ -38,4 +33,15 @@ export class AuthController {
     refreshTokens(@Req() req: Request) {
         return this.authService.refreshTokens(req.user['email']);
     }
+    @ApiOperation({ summary: 'Check token' })
+    @UseGuards(AccessTokenGuard)
+    @ApiBearerAuth('acces-token')
+    @Get('check')
+    checkToken() {
+        return {
+            code: 200,
+            message: "Ok"
+        }
+    }
+
 }

@@ -1,12 +1,13 @@
 import { HttpException, HttpStatus, Injectable, NotFoundException } from "@nestjs/common";
-import { User } from "./users.model";
+import { User } from "../users.model";
 import { TemplatesService } from "src/extentions/templates/templates.service";
-import { UpdateUserDto } from "./dto/updateUser.dto";
-import { UpdatePassword } from "./dto/updatePassword.dto";
-import { UserDataGateway } from "./interface/user.interface";
+import { UpdateUserDto } from "../dto/updateUser.dto";
+import { UpdatePassword } from "../dto/updatePassword.dto";
+import { UserDataGateway } from "../interface/user.interface";
 import { TemplateDataGateway } from "src/extentions/templates/interface/templates.interface";
-import { CreateUserDto } from "./dto/createUser.dto";
-import { SirenDataGateway } from "./interface/siren.interface";
+import { CreateUserDto } from "../dto/createUser.dto";
+import { SirenDataGateway } from "../interface/siren.interface";
+import { FilterRestaurantsDto } from "../dto/filterRestaurants.dto";
 
 
 @Injectable()
@@ -63,6 +64,10 @@ export class UsersService {
             throw new NotFoundException('User not found');
         }
         return user;
+    }
+
+    async findAllRestaurants(filter: FilterRestaurantsDto){
+        return this.userDataGateway.getAllRestaurants(filter);
     }
 
     // methode to update a user
