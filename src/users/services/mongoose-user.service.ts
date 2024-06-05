@@ -32,6 +32,10 @@ export class MongooseUser implements UserDataGateway {
             .skip(filter.currentPage * filter.restaurantPerPage);
     };
 
+    countRestaurants = async () => {
+        return this.userModel.countDocuments();
+    }
+
     getUserByEmail = async (email: string) => {
         return this.userModel.findOne({ email: email });
     };

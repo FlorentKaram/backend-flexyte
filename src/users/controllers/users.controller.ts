@@ -30,6 +30,13 @@ export class UsersController {
         return this.usersService.findAllRestaurants(filter);
     } 
 
+    // route to get number of restaurants
+    @ApiOperation({ summary: 'Get number of restaurants' })
+    @Get('count')
+    async countRestaurants(){
+        return this.usersService.countRestaurants();
+    }
+
     // route to patch your informations
     @UseGuards(AccessTokenGuard)
     @ApiBearerAuth('acces-token')

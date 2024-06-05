@@ -70,6 +70,10 @@ export class UsersService {
         return this.userDataGateway.getAllRestaurants(filter);
     }
 
+    async countRestaurants(){
+        return this.userDataGateway.countRestaurants();
+    }
+
     // methode to update a user
     async update(email: string, companyName: string, user: UpdateUserDto) {
         if (email != user.email) {

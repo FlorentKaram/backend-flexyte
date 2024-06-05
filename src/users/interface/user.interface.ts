@@ -5,7 +5,9 @@ import { FilterRestaurantsDto } from "../dto/filterRestaurants.dto";
 export abstract class UserDataGateway {
     getUserByEmail: (email: string) => Promise<User>;
 
-    getAllRestaurants: (filter: FilterRestaurantsDto) => Promise<any>;
+    getAllRestaurants: (filter: FilterRestaurantsDto) => Promise<User[]>;
+
+    countRestaurants: () => Promise<Number>;
 
     createUser: (user: CreateUserDto) => User;
 
