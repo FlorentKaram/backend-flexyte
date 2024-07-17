@@ -61,6 +61,6 @@ export class RestaurantController {
     @ApiOperation({ summary: 'Delete restaurant' })
     @Delete()
     remove(@Request() req) {
-        return this.restaurantsService.remove(req.user.email);
+        return this.restaurantsService.remove(req.user.companyName);
     }
 }

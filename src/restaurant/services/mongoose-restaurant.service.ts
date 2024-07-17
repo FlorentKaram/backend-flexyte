@@ -39,6 +39,12 @@ export class MongooseRestaurant implements RestaurantDataGateway {
     getRestaurantByEmail = async (email: string) => {
         return this.restaurantModel.findOne({ email: email });
     };
+    
+    getRestaurantByCompanyName = async  (companyName: string) => {
+        return this.restaurantModel.findOne({ companyName: companyName });
+
+    };
+
 
     createRestaurant = (restaurant: CreateRestaurantDto) => {
         return new this.restaurantModel(restaurant);

@@ -103,13 +103,13 @@ export class RestaurantService {
     }
 
     // methode to remove a restaurant by his email
-    async remove(email: string) {
-        const restaurant = await this.restaurantDataGateway.getRestaurantByEmail(email);
+    async remove(companyName: string) {
+        const restaurant = await this.restaurantDataGateway.getRestaurantByCompanyName(companyName);
         if (!restaurant) {
             throw new NotFoundException('Restaurant not found');
         }
-        let result = await this.restaurantDataGateway.deleteRestaurantByEmail(email);
-        await this.templateDataGateway.deleteTemplate(email);
+        let result = await this.restaurantDataGateway.deleteRestaurantByEmail(restaurant.email);
+        await this.templateDataGateway.deleteTemplate(companyName);
         this.hidePassword(result);
         return result;
     }
