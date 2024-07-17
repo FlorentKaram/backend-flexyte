@@ -1,16 +1,16 @@
 import { Body, Controller, Delete, Get, Patch, Post, Request, UseGuards } from "@nestjs/common";
 import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { AccessTokenGuard } from "src/guards/access-token.guard";
-import { UpdateUserDto } from "../dto/updateUser.dto";
 import { UpdatePassword } from "../dto/updatePassword.dto";
-import { UsersService } from "../services/users.service";
+import { RestaurantService } from "../services/restaurant.service";
 import { FilterRestaurantsDto } from "../dto/filterRestaurants.dto";
+import { UpdateRestaurantDto } from "../dto/updateRestaurant.dto";
 
 
-@ApiTags('User')
-@Controller('user')
-export class UsersController {
-    constructor(private readonly usersService: UsersService) { }
+@ApiTags('Restaurant')
+@Controller('restaurant')
+export class RestaurantController {
+    constructor(private readonly restaurantsService: RestaurantService) { }
 
     // route to get your informations
     @UseGuards(AccessTokenGuard)
@@ -18,7 +18,7 @@ export class UsersController {
     @ApiOperation({ summary: 'Get restaurant' })
     @Get()
     async findByEmail(@Request() req) {
-        let user = await this.usersService.findOneByEmail(req.user.email);
+        let user = await this.restaurantsService.findOneByEmail(req.user.email);
         user.password = null;
         return user;
     }
@@ -27,23 +27,23 @@ export class UsersController {
     @ApiOperation({ summary: 'Get all restaurants' })
     @Post('all')
     async findAllrestaurants(@Body() filter: FilterRestaurantsDto) {
-        return this.usersService.findAllRestaurants(filter);
+        return this.restaurantsService.findAllRestaurants(filter);
     } 
 
     // route to get number of restaurants
     @ApiOperation({ summary: 'Get number of restaurants' })
     @Get('count')
     async countRestaurants(){
-        return this.usersService.countRestaurants();
+        return this.restaurantsService.countRestaurants();
     }
 
     // route to patch your informations
     @UseGuards(AccessTokenGuard)
     @ApiBearerAuth('acces-token')
-    @ApiOperation({ summary: 'Patch user' })
+    @ApiOperation({ summary: 'Patch restaurant' })
     @Patch()
-    update(@Request() req, @Body() updateUserDto: UpdateUserDto) {
-        return this.usersService.update(req.user.email, req.user.companyName, updateUserDto);
+    update(@Request() req, @Body() updateRestaurantDto: UpdateRestaurantDto) {
+        return this.restaurantsService.update(req.user.email, req.user.companyName, updateRestaurantDto);
     }
 
     // route to patch password
@@ -52,15 +52,15 @@ export class UsersController {
     @ApiOperation({ summary: 'Patch password' })
     @Patch('/password')
     updatePassword(@Request() req, @Body() password: UpdatePassword) {
-        return this.usersService.updatePassword(req.user.email, password);
+        return this.restaurantsService.updatePassword(req.user.email, password);
     }
 
     // route to delete your account
     @UseGuards(AccessTokenGuard)
     @ApiBearerAuth('acces-token')
-    @ApiOperation({ summary: 'Delete user' })
+    @ApiOperation({ summary: 'Delete restaurant' })
     @Delete()
     remove(@Request() req) {
-        return this.usersService.remove(req.user.email);
+        return this.restaurantsService.remove(req.user.email);
     }
 }

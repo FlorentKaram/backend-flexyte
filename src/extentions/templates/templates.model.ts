@@ -6,8 +6,11 @@ export type TemplateDocument = Template & Document;
 @Schema()
 export class Template {
 
-    @Prop({required: true, unique: true, default: 0})
+    @Prop({required: true,  default: 0})
     templateNumber: number;
+
+    @Prop({required: true, unique: true})
+    companyName: string;
 
     @Prop()
     description: string;

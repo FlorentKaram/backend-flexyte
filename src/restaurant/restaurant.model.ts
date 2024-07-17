@@ -3,9 +3,9 @@ import { Document } from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDefined, IsEmail, IsNotEmpty, IsNumber, IsString, MaxLength, MinLength } from 'class-validator';
 
-export type UserDocument = User & Document;
+export type RestaurantDocument = Restaurant & Document;
 @Schema()
-export class User {
+export class Restaurant {
 
     @Prop({ required: true, unique: true })
     email: string;
@@ -59,4 +59,4 @@ export class User {
     readonly isAdmin: boolean = false;
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+export const RestaurantSchema = SchemaFactory.createForClass(Restaurant);

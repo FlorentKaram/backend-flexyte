@@ -1,50 +1,50 @@
 import { BadRequestException, ForbiddenException, HttpException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { loginUserDTO } from './dto/login-user.dto';
 import { jwtConstants } from './constant';
-import { CreateUserDto } from 'src/users/dto/createUser.dto';
-import { UsersService } from 'src/users/services/users.service';
+import { CreateRestaurantDto } from 'src/restaurant/dto/createRestaurant.dto';
+import { RestaurantService } from 'src/restaurant/services/restaurant.service';
+import { loginRestaurantDTO } from './dto/login-user.dto';
 
 @Injectable()
 export class AuthService {
     saltOrRounds = 10;
     bcrypt = require('bcryptjs');
 
-    constructor(private usersService: UsersService, private jwtService: JwtService) {
+    constructor(private restaurantService: RestaurantService, private jwtService: JwtService) {
         // init bcrypt salt
         this.bcrypt.genSaltSync(this.saltOrRounds);
     }
 
-    async signUp(createUser: CreateUserDto): Promise<any> {
-        const newUser = await this.usersService.create(createUser);
-        const tokens = await this.getTokens(newUser.email, newUser.companyName, newUser.isAdmin);
+    async signUp(createrestaurant: CreateRestaurantDto): Promise<any> {
+        const newrestaurant = await this.restaurantService.create(createrestaurant);
+        const tokens = await this.getTokens(newrestaurant.email, newrestaurant.companyName, newrestaurant.isAdmin);
         return tokens;
     }
 
-    async signIn(data: loginUserDTO) {
-        // Check if user exists
-        const user = await this.usersService.findOneByEmail(data.email);
+    async signIn(data: loginRestaurantDTO) {
+        // Check if restaurant exists
+        const restaurant = await this.restaurantService.findOneByEmail(data.email);
 
-        if (!await this.bcrypt.compareSync(data.password, user.password)) {
+        if (!await this.bcrypt.compareSync(data.password, restaurant.password)) {
             throw new BadRequestException('Password is incorrect');
         }
         
-        const tokens = await this.getTokens(user.email, user.companyName, user.isAdmin);
+        const tokens = await this.getTokens(restaurant.email, restaurant.companyName, restaurant.isAdmin);
         return tokens;
     }
 
-    async signInAdmin(data: loginUserDTO) {
-        // Check if user exists
-        const user = await this.usersService.findOneByEmail(data.email);
+    async signInAdmin(data: loginRestaurantDTO) {
+        // Check if restaurant exists
+        const restaurant = await this.restaurantService.findOneByEmail(data.email);
 
-        if (!await this.bcrypt.compareSync(data.password, user.password)) {
+        if (!await this.bcrypt.compareSync(data.password, restaurant.password)) {
             throw new BadRequestException('Password is incorrect');
         }
-        if(!user.isAdmin){
+        if(!restaurant.isAdmin){
             throw new UnauthorizedException();
         }
         
-        const tokens = await this.getTokens(user.email, user.companyName, user.isAdmin);
+        const tokens = await this.getTokens(restaurant.email, restaurant.companyName, restaurant.isAdmin);
         return tokens;
     }
 
@@ -80,11 +80,11 @@ export class AuthService {
     }
 
     async refreshTokens(email: string) {
-        const user = await this.usersService.findOneByEmail(email);
-        if (!user) {
+        const restaurant = await this.restaurantService.findOneByEmail(email);
+        if (!restaurant) {
             throw new ForbiddenException('Access Denied');
         } 
-        const tokens = await this.getTokens(user.email, user.companyName, user.isAdmin);        
+        const tokens = await this.getTokens(restaurant.email, restaurant.companyName, restaurant.isAdmin);        
         return tokens;
     }
 }

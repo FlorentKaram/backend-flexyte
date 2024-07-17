@@ -10,24 +10,24 @@ import { InjectModel } from "@nestjs/mongoose";
 export class MongooseTemplate implements TemplateDataGateway{
     constructor(@InjectModel('templates') private readonly templateModel: Model<Template>) { }
 
-    createTemplate = async (email: string, templateNumber: number) => {
-        return this.templateModel.create({email: email, templateNumber: templateNumber});
+    createTemplate = async (companyName: string, templateNumber: number) => {
+        return this.templateModel.create({companyName: companyName, templateNumber: templateNumber});
     
     };
 
-    findOneTemplate = async (email: string) => {
-        return this.templateModel.findOne({email: email});
+    findOneTemplate = async (companyName: string) => {
+        return this.templateModel.findOne({companyName: companyName});
     };
 
-    updateTemplate = async (email: string, template: TemplateDto) => {
-        return this.templateModel.findOneAndUpdate({email: email}, template);
+    updateTemplate = async (companyName: string, template: TemplateDto) => {
+        return this.templateModel.findOneAndUpdate({companyName: companyName}, template);
     };
 
     saveTemplate = async (template: HydratedDocument<Template>) => {
         return template.save();
     };
 
-    deleteTemplate = async (email: string) => {
-        return this.templateModel.deleteOne({email: email});
+    deleteTemplate = async (companyName: string) => {
+        return this.templateModel.deleteOne({companyName: companyName});
     };
 }

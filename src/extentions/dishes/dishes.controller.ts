@@ -11,13 +11,13 @@ export class DishController{
 
     @ApiOperation({ summary: 'Get dish by his id' })
     @Get(':id')
-    async getOne(@Param('id') id: string,){
+    async getOne(@Param('id') id: string){
         return this.dishService.getOne(id);
     }
 
     @ApiOperation({ summary: 'Get all dish of a restaurant' })
-    @Get('user/:userEmail')
-    async getAll(@Param('userEmail') emailRestautant: string){
+    @Get('restaurant/:restaurantEmail')
+    async getAll(@Param('restaurantEmail') emailRestautant: string){
         return this.dishService.getAll(emailRestautant);
     }
 

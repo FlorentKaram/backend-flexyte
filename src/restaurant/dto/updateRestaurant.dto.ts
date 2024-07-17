@@ -1,8 +1,10 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { Type } from "class-transformer";
-import { IsArray, IsDefined, IsEmail, IsNotEmpty, IsNumber, IsString, ValidateNested } from "class-validator";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsArray, IsDefined, IsEmail, IsNotEmpty, IsNumber, IsString, MaxLength, MinLength, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 
-export class CreateUserDto{
+export class UpdateRestaurantDto {
     @IsEmail()
     @IsString()
     @IsNotEmpty()
@@ -21,18 +23,6 @@ export class CreateUserDto{
     @IsDefined()
     @ApiProperty()
     companyDescription: string;
-
-    @IsNumber()
-    @IsNotEmpty()
-    @IsDefined()
-    @ApiProperty()
-    companyId: number;
-
-    @IsString()
-    @IsNotEmpty()
-    @IsDefined()
-    @ApiProperty()
-    password: string;
 
     @IsString()
     @IsNotEmpty()
@@ -55,62 +45,61 @@ export class CreateUserDto{
     @IsNotEmpty()
     @IsDefined()
     @ApiProperty()
-    state: string;
-
-    @IsNumber()
-    @IsNotEmpty()
-    @IsDefined()
-    @ApiProperty()
     pickedTemplate: number;
 
+    @IsString()
     @IsDefined()
+    @ApiProperty()
     @IsArray()
     @Type(() => Date)
     @ValidateNested({ each: true })
-    @ApiProperty()
     mondayFromTo: Date[];
 
+    @IsString()
     @IsDefined()
+    @ApiProperty()
     @IsArray()
     @Type(() => Date)
     @ValidateNested({ each: true })
-    @ApiProperty()
     tuesdayFromTo: Date[];
 
+    @IsString()
     @IsDefined()
+    @ApiProperty()
     @IsArray()
     @Type(() => Date)
     @ValidateNested({ each: true })
-    @ApiProperty()
     wednesdayFromTo: Date[];
 
+    @IsString()
     @IsDefined()
+    @ApiProperty()
     @IsArray()
     @Type(() => Date)
     @ValidateNested({ each: true })
-    @ApiProperty()
     thursdayFromTo: Date[];
 
+    @IsString()
     @IsDefined()
+    @ApiProperty()
     @IsArray()
     @Type(() => Date)
     @ValidateNested({ each: true })
-    @ApiProperty()
     fridayFromTo: Date[];
 
+    @IsString()
     @IsDefined()
+    @ApiProperty()
     @IsArray()
     @Type(() => Date)
     @ValidateNested({ each: true })
-    @ApiProperty()
     saturdayFromTo: Date[];
 
+    @IsString()
     @IsDefined()
+    @ApiProperty()
     @IsArray()
     @Type(() => Date)
     @ValidateNested({ each: true })
-    @ApiProperty()
     sundayFromTo: Date[];
-
-    readonly isAdmin: boolean = false;
 }

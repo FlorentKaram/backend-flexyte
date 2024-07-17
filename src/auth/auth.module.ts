@@ -4,15 +4,15 @@ import { JwtModule } from "@nestjs/jwt";
 import { RefreshTokenStrategy } from './strategies/refresh-token.strategy';
 import { AccessTokenStrategy } from './strategies/access-token.strategy';
 import { PassportModule } from '@nestjs/passport';
-import { UsersModule } from 'src/users/users.module';
 import { AuthController } from './auth.controller';
+import { RestaurantModule } from 'src/restaurant/restaurant.module';
 
 @Module({
   controllers: [AuthController],
   imports: [
     PassportModule,
     JwtModule,
-    UsersModule
+    RestaurantModule
   ],
   providers: [AuthService,AccessTokenStrategy, RefreshTokenStrategy],
   exports: [AuthService]

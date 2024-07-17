@@ -1,12 +1,11 @@
 import { Body, Controller, Get, Post, Req, UseGuards, } from '@nestjs/common';
 import { Request } from 'express';
-import { User } from 'src/users/users.model';
 import { AuthService } from './auth.service';
-import { loginUserDTO } from './dto/login-user.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { RefreshTokenGuard } from '../guards/refresh-token.guard';
-import { CreateUserDto } from 'src/users/dto/createUser.dto';
 import { AccessTokenGuard } from 'src/guards/access-token.guard';
+import { CreateRestaurantDto } from 'src/restaurant/dto/createRestaurant.dto';
+import { loginRestaurantDTO } from './dto/login-user.dto';
 
 
 @ApiTags('Auth')
@@ -16,13 +15,13 @@ export class AuthController {
 
     @ApiOperation({ summary: 'Create account and login' })
     @Post('signup')
-    signup(@Body() createUserDto: CreateUserDto) {
-        return this.authService.signUp(createUserDto);
+    signup(@Body() createRestaurantDto: CreateRestaurantDto) {
+        return this.authService.signUp(createRestaurantDto);
     }
 
     @ApiOperation({ summary: 'Login' })
     @Post('signin')
-    signin(@Body() data: loginUserDTO) {
+    signin(@Body() data: loginRestaurantDTO) {
         return this.authService.signIn(data);
     }
 

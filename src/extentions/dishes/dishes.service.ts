@@ -26,7 +26,7 @@ export class DishService {
     async update(email:string, id: string, dish: DishDto) {
         let dishtoUpdate = await this.dishesDataGateway.getOneDish(id);
         if(dishtoUpdate.email != email){
-            throw new UnauthorizedException('you cannot modify other users dishes')
+            throw new UnauthorizedException('you cannot modify other restaurants dishes')
         }
         if (!dishtoUpdate) {
             throw new NotFoundException('Dish not found');
@@ -42,7 +42,7 @@ export class DishService {
     async delete(email:string, id: string) {
         let dishtoDelete = await this.dishesDataGateway.getOneDish(id);
         if(dishtoDelete.email != email){
-            throw new UnauthorizedException('you cannot delete other users dishes')
+            throw new UnauthorizedException('you cannot delete other restaurants dishes')
         }
         if(!await this.dishesDataGateway.getOneDish(id)){
             throw new NotFoundException('Dish not found');
