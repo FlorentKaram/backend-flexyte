@@ -3,7 +3,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Injectable } from "@nestjs/common";
 import { FilterRestaurantsDto } from "../dto/filterRestaurants.dto";
 import { RestaurantDataGateway } from "../interface/restaurant.interface";
-import { CreateRestaurantDto } from "../dto/createrestaurant.dto";
+import { CreateRestaurantDto } from "../dto/createRestaurant.dto";
 import { Restaurant } from "../restaurant.model";
 
 @Injectable()
