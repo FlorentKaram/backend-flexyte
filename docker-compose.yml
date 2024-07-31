@@ -23,8 +23,11 @@ services:
       - 27019:27017
     labels:
       traefik.enable: true
-      traefik.tcp.routers.mongodb-flexyte.rule: HostSNI(`*`)
-      traefik.tcp.routers.mongodb-flexyte.entrypoints: mongodbflexyte
+      traefik.tcp.routers.mongo.rule: HostSNI(`sample-restaurant.com`)
+      traefik.tcp.routers.mongo.entrypoints: mongo
+      traefik.tcp.routers.mongo.service: mongo
+      traefik.tcp.services.mongo.loadbalancer.server.port: 27019
+      traefik.tcp.routers.mongo.tls.domains[0].main: sample-restaurant.com
 
 
     environment:

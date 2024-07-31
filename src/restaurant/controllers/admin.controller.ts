@@ -5,7 +5,7 @@ import { RestaurantService } from "../services/restaurant.service";
 import { TemplatesService } from "src/extentions/templates/templates.service";
 
 @ApiTags('Admin')
-@Controller('Admin')
+@Controller('admin')
 export class AdminController {
     constructor(private readonly restaurantsService: RestaurantService, private readonly templateService: TemplatesService) { }
 

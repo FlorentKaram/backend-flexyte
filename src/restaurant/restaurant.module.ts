@@ -22,7 +22,7 @@ import { MongooseRestaurant } from './services/mongoose-restaurant.service';
     ScheduleModule.forRoot()
   ],
   providers: [RestaurantService, AdminService,{ provide: RestaurantDataGateway, useClass: MongooseRestaurant }, { provide: SirenDataGateway, useClass: SirenApiService}],
-  controllers: [RestaurantController, AdminController],
+  controllers: [AdminController, RestaurantController],
   exports: [RestaurantService,SirenDataGateway]
 })
 export class RestaurantModule {}
