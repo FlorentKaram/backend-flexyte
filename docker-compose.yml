@@ -19,8 +19,6 @@ services:
     image: mongo:latest
     container_name: mongodb-flexyte
     restart: unless-stopped
-    ports:
-      - 27017:27017
     labels:
       traefik.enable: true
       traefik.tcp.routers.mongo.rule: HostSNI(`sample-restaurant.com`)
