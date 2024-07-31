@@ -11,7 +11,7 @@ services:
       traefik.http.routers.backend-flexyte.tls: true
       traefik.http.routers.backend-flexyte.rule: (Host(`sample-restaurant.com`) || Host(`www.sample-restaurant.com`))  && PathPrefix(`/backendFlexyte/`)
     ports:
-      - 3002:3000
+      - 3000:3000
     networks:
       - backend-flexyte
       
@@ -20,15 +20,14 @@ services:
     container_name: mongodb-flexyte
     restart: unless-stopped
     ports:
-      - 27019:27017
+      - 27017:27017
     labels:
       traefik.enable: true
       traefik.tcp.routers.mongo.rule: HostSNI(`sample-restaurant.com`)
       traefik.tcp.routers.mongo.entrypoints: mongo
       traefik.tcp.routers.mongo.service: mongo
-      traefik.tcp.services.mongo.loadbalancer.server.port: 27019
+      traefik.tcp.services.mongo.loadbalancer.server.port: 27017
       traefik.tcp.routers.mongo.tls.domains[0].main: sample-restaurant.com
-
 
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
