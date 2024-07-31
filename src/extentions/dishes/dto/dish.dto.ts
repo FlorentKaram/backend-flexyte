@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsArray, IsBoolean, IsDate, IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class DishDto{
-    email: string;
+    companyName: string;
 
     @IsString()
     @IsNotEmpty()

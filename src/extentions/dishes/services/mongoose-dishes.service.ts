@@ -8,8 +8,8 @@ import { Dish } from "../dishes.model";
 export class MongooseDishes implements DishesDataGateway {
     constructor(@InjectModel('dishes') private readonly dishesModel: Model<Dish>) { }
 
-    getAllDishes = async (email: string) => {
-        return this.dishesModel.find({email: email}); 
+    getAllDishes = async (companyName: string) => {
+        return this.dishesModel.find({companyName: companyName}); 
     }
 
     getOneDish = async (id: string) => {

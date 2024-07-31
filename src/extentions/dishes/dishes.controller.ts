@@ -16,9 +16,9 @@ export class DishController{
     }
 
     @ApiOperation({ summary: 'Get all dish of a restaurant' })
-    @Get('restaurant/:restaurantEmail')
-    async getAll(@Param('restaurantEmail') emailRestautant: string){
-        return this.dishService.getAll(emailRestautant);
+    @Get('restaurant/:companyName')
+    async getAll(@Param('companyName') companyName: string){
+        return this.dishService.getAll(companyName);
     }
 
     @UseGuards(AccessTokenGuard)
@@ -34,7 +34,7 @@ export class DishController{
     @ApiOperation({ summary: 'Update dish by is id'})
     @Patch(':id')
     async update(@Request() req, @Param('id') id: string, @Body() dish: DishDto){
-        return this.dishService.update(req.user.email, id, dish);
+        return this.dishService.update(req.user.companyName, id, dish);
     }
 
 

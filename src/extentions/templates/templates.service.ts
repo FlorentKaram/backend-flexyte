@@ -29,6 +29,15 @@ export class TemplatesService {
         return this.templateDataGateway.saveTemplate(temp);
     }
 
+    async lockTemplate(companyName: string){
+        let temp = await this.templateDataGateway.findOneTemplate(companyName);
+        if(!temp){
+            throw new NotFoundException();
+        }
+        temp.isLocked = !temp.isLocked;
+        return true;
+    }
+
     async getTemplate(companyName: string){
         let temp = await this.templateDataGateway.findOneTemplate(companyName);
         if(!temp){

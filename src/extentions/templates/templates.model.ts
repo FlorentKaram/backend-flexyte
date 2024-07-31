@@ -35,6 +35,9 @@ export class Template {
 
     @Prop()
     city: string;
+
+    @Prop({ default: false })
+    isLocked: boolean = false;
 }
 
 export const TemplateSchema = SchemaFactory.createForClass(Template);

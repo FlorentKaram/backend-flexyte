@@ -2,7 +2,7 @@ import { Dish } from "../dishes.model";
 
 export abstract class DishesDataGateway {
 
-    getAllDishes: (email: string) => Promise<Dish[]>;
+    getAllDishes: (companyName: string) => Promise<Dish[]>;
 
     getOneDish: (id: string)=> Promise<Dish>;
 

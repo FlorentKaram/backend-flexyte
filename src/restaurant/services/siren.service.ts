@@ -51,7 +51,6 @@ export class SirenApiService implements SirenDataGateway {
             }).catch((err) => {
                 return false;
             })
-        
     };
 
 }

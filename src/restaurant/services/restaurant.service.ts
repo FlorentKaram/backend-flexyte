@@ -52,7 +52,7 @@ export class RestaurantService {
         this.hidePassword(result);
 
         // create a template for the restaurant
-        let test = this.templateService.initRestaurantTemplate(restaurant.companyName);
+        this.templateService.initRestaurantTemplate(restaurant.companyName);
         
         return result;
     }
@@ -118,28 +118,13 @@ export class RestaurantService {
     async createFirstRestaurant() {
         let password = await this.bcrypt.hashSync(process.env.ROOT_USER_PASSWORD || "string", this.saltOrRounds);
         let res = await this.restaurantDataGateway.createFirstRestaurant({
-            email: process.env.ROOT_USER || "string@string.fr",
+            email: process.env.ROOT_USER || "admin@admin.fr",
             companyName: "admin",
             companyId: 0,
             password: password,
-            streetAddress1: "azertyuiop",
-            streetAddress2: "",
-            state: "France",
-            zipCode: "aze",
-            pickedTemplate: 0,
-            mondayFromTo : [],
-            tuesdayFromTo: [],
-            wednesdayFromTo: [],
-            thursdayFromTo: [],
-            fridayFromTo: [],
-            saturdayFromTo: [],
-            sundayFromTo: [],
             isAdmin: true
         }).then(() => console.log("Root restaurant has been created"))
         .catch(() => console.log("Root restaurant already existe"));
-        
-
-
     }
 
     async emailAlreadyExist(email: string) {

@@ -7,7 +7,7 @@ export type DishDocument = Dish & Document;
 export class Dish{
     
     @Prop({required: true})
-    email: string;
+    companyName: string;
 
     @Prop({required: true})
     name: string;

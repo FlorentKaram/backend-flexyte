@@ -15,15 +15,23 @@ export class TemplatesController {
     @ApiBearerAuth('acces-token')
     @ApiOperation({ summary: 'Patch template data' })
     @Patch()
-    async updateTemplate(@Request() req, @Body() template: TemplateDto){
+    async updateTemplate(@Request() req, @Body() template: TemplateDto) {
         return this.templatesService.updateTemplate(req.user.companyName, template);
     }
 
     // Get template
     @ApiOperation({ summary: 'Get template data' })
     @Get(':companyName')
-    async getTemplate(@Param('companyName') companyName: string){
+    async getTemplate(@Param('companyName') companyName: string) {
         return this.templatesService.getTemplate(companyName);
     }
 
+    // Get template
+    @UseGuards(AccessTokenGuard)
+    @ApiBearerAuth('acces-token')
+    @ApiOperation({ summary: 'Get template data' })
+    @Get()
+    async getTemplateForRestaurant(@Request() req) {
+        return this.templatesService.getTemplate(req.user.companyName);
+    }
 }

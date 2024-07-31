@@ -6,10 +6,6 @@ import { DishDto } from "./dto/dish.dto";
 export class DishService {
     constructor(private dishesDataGateway: DishesDataGateway) { }
 
-    async getAll(email: string) {
-        return await this.dishesDataGateway.getAllDishes(email);
-    }
-
     async getOne(id: string) {
         let dish = await this.dishesDataGateway.getOneDish(id);
         if (!dish) {
@@ -18,14 +14,18 @@ export class DishService {
         return dish;
     }
 
-    async create(email: string, dish: DishDto) {
-        dish.email = email;
+    async getAll(companyName: string) {
+        return await this.dishesDataGateway.getAllDishes(companyName);
+    }
+
+    async create(companyName: string, dish: DishDto) {
+        dish.companyName = companyName;
         return this.dishesDataGateway.createDish(dish);
     }
 
-    async update(email:string, id: string, dish: DishDto) {
+    async update(companyName: string, id: string, dish: DishDto) {
         let dishtoUpdate = await this.dishesDataGateway.getOneDish(id);
-        if(dishtoUpdate.email != email){
+        if(dishtoUpdate.companyName != companyName){
             throw new UnauthorizedException('you cannot modify other restaurants dishes')
         }
         if (!dishtoUpdate) {
@@ -39,9 +39,9 @@ export class DishService {
         return this.dishesDataGateway.saveDish(dishtoUpdate);
     }
 
-    async delete(email:string, id: string) {
+    async delete(companyName: string, id: string) {
         let dishtoDelete = await this.dishesDataGateway.getOneDish(id);
-        if(dishtoDelete.email != email){
+        if(dishtoDelete.companyName != companyName){
             throw new UnauthorizedException('you cannot delete other restaurants dishes')
         }
         if(!await this.dishesDataGateway.getOneDish(id)){
