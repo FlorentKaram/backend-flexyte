@@ -8,7 +8,7 @@ export abstract class TemplateDataGateway {
 
     findOneTemplate: (companyName: string) => Promise<Template>;
 
-    updateTemplate: (companyName: string, template: TemplateDto) => Promise<Template>;
+    updateTemplate: (companyName: string, template: Template) => Promise<Template>;
 
     saveTemplate: (template: Template) => Promise<Template>;
 

@@ -23,7 +23,7 @@ export class AuthController {
 
     @UseGuards(RootAdminGuard)
     @ApiOperation({ summary: 'Create admin' })
-    @Post('signup')
+    @Post('signup/admin')
     signupAdmin(@Body() createRestaurantDto: CreateRestaurantDto) {
         createRestaurantDto.isAdmin = true;
         return this.authService.signUp(createRestaurantDto);

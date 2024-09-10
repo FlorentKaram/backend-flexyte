@@ -3,6 +3,59 @@ import { Document } from 'mongoose';
 
 export type TemplateDocument = Template & Document;
 
+@Schema({ _id: false, safe: false })
+export class Day{
+    @Prop()
+    openLunchHours: string;
+
+    @Prop()
+    openLunchMinutes: string;
+
+    @Prop()
+    closeLunchHours: string;
+
+    @Prop()
+    closeLunchMinutes: string;
+
+    @Prop()
+    openDinnerHours: string;
+
+    @Prop()
+    openDinnerMinutes: string;
+
+    @Prop()
+    closeDinnerHours: string;
+
+    @Prop()
+    closeDinnerMinutes: string;
+}
+@Schema({ _id: false, safe: false })
+export class RestaurantReservation{
+    @Prop()
+    numberOfTables: number;
+
+    @Prop({type: Day})
+    monday: Day;
+
+    @Prop({type: Day})
+    tuesday: Day;
+
+    @Prop({type: Day})
+    wednesday: Day;
+
+    @Prop({type: Day})
+    thursday: Day;
+
+    @Prop({type: Day})
+    friday: Day;
+
+    @Prop({type: Day})
+    saturday: Day;
+
+    @Prop({type: Day})
+    sunday: Day;
+}
+
 @Schema()
 export class Template {
 
@@ -36,8 +89,12 @@ export class Template {
     @Prop()
     city: string;
 
+    @Prop({type: RestaurantReservation})
+    reservation: RestaurantReservation;
+
     @Prop({ default: false })
     isLocked: boolean = false;
 }
+
 
 export const TemplateSchema = SchemaFactory.createForClass(Template);

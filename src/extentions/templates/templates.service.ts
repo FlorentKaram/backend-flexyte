@@ -15,8 +15,7 @@ export class TemplatesService {
         return this.templateDataGateway.createTemplate(companyName, 0);
     }
 
-    async updateTemplate(companyName: string, template: TemplateDto) {
-        
+    async updateTemplate(companyName: string, template: TemplateDto) {        
         let temp = await this.templateDataGateway.findOneTemplate(companyName);
         if(!temp){
             throw new HttpException("An error occurred, try later", HttpStatus.NOT_FOUND)

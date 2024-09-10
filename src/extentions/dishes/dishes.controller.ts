@@ -43,7 +43,7 @@ export class DishController{
     @ApiOperation({ summary: 'Delete dish by his id' })
     @Delete(':id')
     async delete(@Request() req, @Param('id') id: string){
-        return this.dishService.delete(req.user.email, id);
+        return this.dishService.delete(req.user.companyName, id);
     }
 
     

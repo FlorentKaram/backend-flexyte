@@ -1,7 +1,78 @@
 
 import { IsDefined, IsEmail, IsNotEmpty, IsNumber, IsString, MaxLength, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 
+
+
+export class DayDto{
+    @IsString()
+    @ApiProperty()
+    openLunchHours: string;
+
+    @IsString()
+    @ApiProperty()
+    openLunchMinutes: string;
+
+    @IsString()
+    @ApiProperty()
+    closeLunchHours: string;
+
+    @IsString()
+    @ApiProperty()
+    closeLunchMinutes: string;
+
+    @IsString()
+    @ApiProperty()
+    openDinnerHours: string;
+
+    @IsString()
+    @ApiProperty()
+    openDinnerMinutes: string;
+
+    @IsString()
+    @ApiProperty()
+    closeDinnerHours: string;
+
+    @IsString()
+    @ApiProperty()
+    closeDinnerMinutes: string;
+}
+
+export class restaurantReservationDto{
+
+    @IsNumber()
+    @ApiProperty()
+    numberOfTables: number;
+
+    @Type(() => DayDto)
+    @ApiProperty()
+    monday: DayDto;
+
+    @Type(() => DayDto)
+    @ApiProperty()
+    tuesday: DayDto;
+
+    @Type(() => DayDto)
+    @ApiProperty()
+    wednesday: DayDto;
+
+    @Type(() => DayDto)
+    @ApiProperty()
+    thursday: DayDto;
+
+    @Type(() => DayDto)
+    @ApiProperty()
+    friday: DayDto;
+
+    @Type(() => DayDto)
+    @ApiProperty()
+    saturday: DayDto;
+
+    @Type(() => DayDto)
+    @ApiProperty()
+    sunday: DayDto;
+}
 
 export class TemplateDto{
 
@@ -41,5 +112,10 @@ export class TemplateDto{
     @IsString()
     @ApiProperty()
     city: string;
+
+    @Type(() => restaurantReservationDto)
+    @ApiProperty()
+    @IsNotEmpty()
+    reservation: restaurantReservationDto;
 
 }

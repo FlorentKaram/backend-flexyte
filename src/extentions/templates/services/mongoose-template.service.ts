@@ -44,7 +44,7 @@ export class MongooseTemplate implements TemplateDataGateway{
         return this.templateModel.findOne({companyName: companyName});
     };
 
-    updateTemplate = async (companyName: string, template: TemplateDto) => {
+    updateTemplate = async (companyName: string, template: Template) => {
         return this.templateModel.findOneAndUpdate({companyName: companyName}, template);
     };
 

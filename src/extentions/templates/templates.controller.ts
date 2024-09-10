@@ -4,6 +4,7 @@ import { AccessTokenGuard } from "src/guards/access-token.guard";
 import { TemplatesService } from "./templates.service";
 import { TemplateDto } from "./dto/template.dto";
 import { FilterTemplatesDto } from "./dto/filterRestaurants.dto";
+import { log } from "console";
 
 
 @ApiTags('Template')
