@@ -50,6 +50,7 @@ export class Dish{
     
     @Prop()
     isSpicy: boolean;
+
 }
 
 export const DishSchema = SchemaFactory.createForClass(Dish);

@@ -3,7 +3,6 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { AccessTokenGuard } from "src/guards/access-token.guard";
 import { UpdatePassword } from "../dto/updatePassword.dto";
 import { RestaurantService } from "../services/restaurant.service";
-import { FilterRestaurantsDto } from "../dto/filterRestaurants.dto";
 import { UpdateRestaurantDto } from "../dto/updateRestaurant.dto";
 
 
@@ -21,20 +20,6 @@ export class RestaurantController {
         let user = await this.restaurantsService.findOneByEmail(req.user.email);
         user.password = null;
         return user;
-    }
-
-    // route to get all restaurants
-    @ApiOperation({ summary: 'Get all restaurants' })
-    @Post('all')
-    async findAllrestaurants(@Body() filter: FilterRestaurantsDto) {
-        return this.restaurantsService.findAllRestaurants(filter);
-    } 
-
-    // route to get number of restaurants
-    @ApiOperation({ summary: 'Get number of restaurants' })
-    @Get('count')
-    async countRestaurants(){
-        return this.restaurantsService.countRestaurants();
     }
 
     // route to patch your informations

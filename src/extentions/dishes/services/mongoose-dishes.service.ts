@@ -27,6 +27,9 @@ export class MongooseDishes implements DishesDataGateway {
         }
         return dish;
     }
+    deleteAllDish = async (companyName: string) => {
+        return this.dishesModel.deleteMany({companyName: companyName})
+    };
 
     saveDish = async (dish: HydratedDocument<Dish>) => {
         return dish.save();

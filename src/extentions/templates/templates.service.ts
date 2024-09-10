@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable, NotFoundException } from "@nestjs/common";
 import { TemplateDto } from "./dto/template.dto";
 import { TemplateDataGateway } from "./interface/templates.interface";
+import { FilterTemplatesDto } from "./dto/filterRestaurants.dto";
 import { log } from "console";
 
 
@@ -35,6 +36,7 @@ export class TemplatesService {
             throw new NotFoundException();
         }
         temp.isLocked = !temp.isLocked;
+        await this.templateDataGateway.updateTemplate(temp.companyName,temp);
         return true;
     }
 
@@ -44,5 +46,20 @@ export class TemplatesService {
             throw new NotFoundException();
         }
         return temp;
+    }
+
+    async getAllTemplates(filterTemplatesDto: FilterTemplatesDto){
+        let templates = await this.templateDataGateway.getAllTemplates(filterTemplatesDto);
+        let numberOfTemplates = await this.templateDataGateway.countTemplates(filterTemplatesDto.filterCompanyName);
+        let perPage = filterTemplatesDto.templatePerPage;
+        if(filterTemplatesDto.templatePerPage == 0){
+            perPage = 10;
+        }
+        return {
+            templates: templates,
+            numberOfTemplates: numberOfTemplates,
+            page: filterTemplatesDto.currentPage,
+            perPage: perPage
+        }
     }
 }

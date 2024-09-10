@@ -50,4 +50,8 @@ export class DishService {
         return this.dishesDataGateway.findAndDeleteDish(id);
     }
 
+    async deleteAllDish(companyName: string){
+        return this.dishesDataGateway.deleteAllDish(companyName);
+    }
+
 }

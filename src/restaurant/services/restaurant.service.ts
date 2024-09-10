@@ -4,7 +4,6 @@ import { TemplatesService } from "src/extentions/templates/templates.service";
 import { UpdatePassword } from "../dto/updatePassword.dto";
 import { TemplateDataGateway } from "src/extentions/templates/interface/templates.interface";
 import { SirenDataGateway } from "../interface/siren.interface";
-import { FilterRestaurantsDto } from "../dto/filterRestaurants.dto";
 import { RestaurantDataGateway } from "../interface/restaurant.interface";
 import { CreateRestaurantDto } from "../dto/createRestaurant.dto";
 import { UpdateRestaurantDto } from "../dto/updateRestaurant.dto";
@@ -16,24 +15,27 @@ export class RestaurantService {
     bcrypt = require('bcryptjs');
 
     constructor(
-        private restaurantDataGateway: RestaurantDataGateway, 
-        private templateDataGateway: TemplateDataGateway, 
-        private templateService: TemplatesService, 
+        private restaurantDataGateway: RestaurantDataGateway,
+        private templateDataGateway: TemplateDataGateway,
+        private templateService: TemplatesService,
         private sirenDataGateway: SirenDataGateway
-        ) {
+    ) {
         this.bcrypt.genSaltSync(this.saltOrRounds);
     }
 
     // create new restaurant
     async create(restaurant: CreateRestaurantDto) {
-        let isSirenValid = await this.sirenDataGateway.checkSiren(restaurant.companyId);
-        if(!isSirenValid){
-            throw new HttpException('Invalid siren',HttpStatus.NOT_FOUND);
+        if(!restaurant.isAdmin){
+            let isSirenValid = await this.sirenDataGateway.checkSiren(restaurant.companyId);
+            if (!isSirenValid) {
+                throw new HttpException('Invalid siren', HttpStatus.NOT_FOUND);
+            }
         }
+
         // check if the email and the company name already exist
         await this.emailAlreadyExist(restaurant.email);
         await this.nameAlreadyExist(restaurant.companyName);
-        
+
         // create a new restaurant
         const newRestaurant = this.restaurantDataGateway.createRestaurant(restaurant);
 
@@ -51,9 +53,11 @@ export class RestaurantService {
         // hide the password
         this.hidePassword(result);
 
-        // create a template for the restaurant
-        this.templateService.initRestaurantTemplate(restaurant.companyName);
-        
+        if (!newRestaurant.isAdmin) {
+            // create a template for the restaurant
+            this.templateService.initRestaurantTemplate(restaurant.companyName);
+        }
+
         return result;
     }
 
@@ -66,20 +70,12 @@ export class RestaurantService {
         return restaurant;
     }
 
-    async findAllRestaurants(filter: FilterRestaurantsDto){
-        return this.restaurantDataGateway.getAllRestaurants(filter);
-    }
-
-    async countRestaurants(){
-        return this.restaurantDataGateway.countRestaurants();
-    }
-
     // methode to update a restaurant
     async update(email: string, companyName: string, restaurant: UpdateRestaurantDto) {
         if (email != restaurant.email) {
             await this.emailAlreadyExist(restaurant.email);
         }
-        if(companyName != restaurant.companyName){
+        if (companyName != restaurant.companyName) {
             await this.nameAlreadyExist(restaurant.companyName)
         }
         const restaurant_update = await this.restaurantDataGateway.getRestaurantByEmail(email);
@@ -91,7 +87,7 @@ export class RestaurantService {
         return result;
     }
 
-    async updatePassword(email: string, updatePassword: UpdatePassword){
+    async updatePassword(email: string, updatePassword: UpdatePassword) {
         const restaurant = await this.restaurantDataGateway.getRestaurantByEmail(email);
         if (!restaurant) {
             throw new NotFoundException('Restaurant not found');
@@ -124,7 +120,7 @@ export class RestaurantService {
             password: password,
             isAdmin: true
         }).then(() => console.log("Root restaurant has been created"))
-        .catch(() => console.log("Root restaurant already existe"));
+            .catch(() => console.log("Root restaurant already existe"));
     }
 
     async emailAlreadyExist(email: string) {

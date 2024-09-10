@@ -9,6 +9,8 @@ export abstract class DishesDataGateway {
     createDish:(dish: Dish)=> Promise<Dish>;
 
     findAndDeleteDish:(id: string)=> Promise<Dish>;
+
+    deleteAllDish:(companyName: string)=> Promise<any>;
     
     saveDish:(dish: Dish)=> Promise<Dish>;
 

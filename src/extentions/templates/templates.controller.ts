@@ -3,6 +3,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { AccessTokenGuard } from "src/guards/access-token.guard";
 import { TemplatesService } from "./templates.service";
 import { TemplateDto } from "./dto/template.dto";
+import { FilterTemplatesDto } from "./dto/filterRestaurants.dto";
 
 
 @ApiTags('Template')
@@ -33,5 +34,12 @@ export class TemplatesController {
     @Get()
     async getTemplateForRestaurant(@Request() req) {
         return this.templatesService.getTemplate(req.user.companyName);
+    }
+
+    // route to get all restaurants
+    @ApiOperation({ summary: 'Get all restaurants' })
+    @Post('all')
+    async findAllrestaurants(@Body() filter: FilterTemplatesDto) {
+        return this.templatesService.getAllTemplates(filter);
     }
 }

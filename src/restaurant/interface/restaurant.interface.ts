@@ -1,15 +1,10 @@
 import { CreateRestaurantDto } from "../dto/createRestaurant.dto";
-import { FilterRestaurantsDto } from "../dto/filterRestaurants.dto";
 import { Restaurant } from "../restaurant.model";
 
 export abstract class RestaurantDataGateway {
     getRestaurantByEmail: (email: string) => Promise<Restaurant>;
 
     getRestaurantByCompanyName: (email: string) => Promise<Restaurant>;
-
-    getAllRestaurants: (filter: FilterRestaurantsDto) => Promise<Restaurant[]>;
-
-    countRestaurants: () => Promise<Number>;
 
     createRestaurant: (Restaurant: CreateRestaurantDto) => Restaurant;
 

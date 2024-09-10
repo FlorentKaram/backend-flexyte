@@ -1,14 +1,18 @@
 
 
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import { jwtDecode } from 'jwt-decode';
+import { ExtractJwt } from 'passport-jwt';
 import { Observable } from 'rxjs';
 
 //To use this guard add @UseGuards(AdminGuard) to your controller
 @Injectable()
-export class AdminGuard implements CanActivate {
+export class RootAdminGuard implements CanActivate {
     constructor() { }
     canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
         const request = context.switchToHttp().getRequest();
-        return request.user.companyName == "admin";
+        const token = ExtractJwt.fromAuthHeaderAsBearerToken()(request)
+        const decodedHeader: any = jwtDecode(token);
+        return decodedHeader.companyName == "admin";
     }
 }

@@ -1,14 +1,14 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNumber, IsString } from "class-validator";
 
-export class FilterRestaurantsDto{
+export class FilterTemplatesDto{
     @IsNumber()
     @ApiProperty()
     currentPage: number;
 
     @IsNumber()
     @ApiProperty()
-    restaurantPerPage: number;
+    templatePerPage: number;
 
     @IsString()
     @ApiProperty()

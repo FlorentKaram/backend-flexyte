@@ -28,5 +28,5 @@ export class CreateRestaurantDto{
     @ApiProperty()
     password: string;
 
-    readonly isAdmin: boolean = false;
+    isAdmin: boolean = false;
 }
