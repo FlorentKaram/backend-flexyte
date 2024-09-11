@@ -7,6 +7,9 @@ export class Reservation {
     companyName: string;
 
     @Prop({required: true})
+    isValid: boolean;
+
+    @Prop({required: true})
     date: Date;
 
     @Prop({required: true})

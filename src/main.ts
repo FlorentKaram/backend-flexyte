@@ -2,6 +2,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { json, urlencoded } from 'express';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -21,7 +22,9 @@ async function bootstrap() {
     //your api version
     .setVersion('1.0.0')
     .build();
-
+  
+  app.use(json({ limit: '14mb' }));
+  app.use(urlencoded({ extended: true, limit: '14mb' }));
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
