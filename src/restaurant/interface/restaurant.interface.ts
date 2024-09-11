@@ -1,20 +1,27 @@
-import { CreateRestaurantDto } from "../dto/createRestaurant.dto";
-import { Restaurant } from "../restaurant.model";
+import { CreateRestaurantDto } from '../dto/createRestaurant.dto';
+import { Restaurant } from '../restaurant.model';
 
 export abstract class RestaurantDataGateway {
-    getRestaurantByEmail: (email: string) => Promise<Restaurant>;
+  getRestaurantByEmail: (email: string) => Promise<Restaurant>;
 
-    getRestaurantByCompanyName: (email: string) => Promise<Restaurant>;
+  getAllRestaurants: () => Promise<Restaurant[]>;
 
-    createRestaurant: (Restaurant: CreateRestaurantDto) => Restaurant;
+  getRestaurantByCompanyName: (email: string) => Promise<Restaurant>;
 
-    createAndSaveRestaurant: (Restaurant: CreateRestaurantDto) => Promise<Restaurant>;
+  createRestaurant: (Restaurant: CreateRestaurantDto) => Restaurant;
 
-    createFirstRestaurant: (Restaurant: Restaurant) => Promise<Restaurant>;
+  createAndSaveRestaurant: (
+    Restaurant: CreateRestaurantDto,
+  ) => Promise<Restaurant>;
 
-    updateRestaurant: (email: string, Restaurant: Restaurant) => Promise<Restaurant>;
+  createFirstRestaurant: (Restaurant: Restaurant) => Promise<Restaurant>;
 
-    deleteRestaurantByEmail: (email: string) => Promise<Restaurant>;
+  updateRestaurant: (
+    email: string,
+    Restaurant: Restaurant,
+  ) => Promise<Restaurant>;
 
-    saveRestaurant: (RestaurantModel: Restaurant) => Promise<Restaurant>;
+  deleteRestaurantByEmail: (email: string) => Promise<Restaurant>;
+
+  saveRestaurant: (RestaurantModel: Restaurant) => Promise<Restaurant>;
 }

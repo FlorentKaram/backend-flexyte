@@ -13,18 +13,22 @@ import { AdminService } from './services/admin.service';
 import { RestaurantDataGateway } from './interface/restaurant.interface';
 import { MongooseRestaurant } from './services/mongoose-restaurant.service';
 
-
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name : "restaurants" , schema: RestaurantSchema }]),
+    MongooseModule.forFeature([
+      { name: 'restaurants', schema: RestaurantSchema },
+    ]),
     TemplatesModule,
     HttpModule,
-    ScheduleModule.forRoot()
+    ScheduleModule.forRoot(),
   ],
-  providers: [RestaurantService, AdminService,{ provide: RestaurantDataGateway, useClass: MongooseRestaurant }, { provide: SirenDataGateway, useClass: SirenApiService}],
+  providers: [
+    RestaurantService,
+    AdminService,
+    { provide: RestaurantDataGateway, useClass: MongooseRestaurant },
+    { provide: SirenDataGateway, useClass: SirenApiService },
+  ],
   controllers: [AdminController, RestaurantController],
-  exports: [RestaurantService,SirenDataGateway]
+  exports: [RestaurantService, SirenDataGateway],
 })
 export class RestaurantModule {}
-
-

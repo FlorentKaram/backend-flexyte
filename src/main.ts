@@ -10,20 +10,24 @@ async function bootstrap() {
     // swagger title
     .setTitle('Flexyte API')
     // swagger description
-    .addBearerAuth({
-      type: 'http', scheme: 'bearer', bearerFormat: 'JWT'
-    }, 'acces-token'
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+      'acces-token',
     )
     //your api version
     .setVersion('1.0.0')
     .build();
 
-  app.useGlobalPipes(new ValidationPipe(
-    {
+  app.useGlobalPipes(
+    new ValidationPipe({
       whitelist: true,
-      skipUndefinedProperties: false
-    }
-  ));
+      skipUndefinedProperties: false,
+    }),
+  );
   app.setGlobalPrefix('backendFlexyte/');
   app.enableCors();
   const document = SwaggerModule.createDocument(app, config);
