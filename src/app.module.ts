@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { TemplatesModule } from './extentions/templates/templates.module';
 import { DishModule } from './extentions/dishes/dishes.module';
+import { ReservationModule } from './extentions/reservation/reservation.module';
 
 
 @Module({
@@ -17,6 +18,7 @@ import { DishModule } from './extentions/dishes/dishes.module';
     RestaurantModule,
     TemplatesModule,
     DishModule,
+    ReservationModule
   ],
   controllers: [AppController],
   providers: [AppService],

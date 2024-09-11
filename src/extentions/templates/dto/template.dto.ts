@@ -40,11 +40,6 @@ export class DayDto{
 }
 
 export class restaurantReservationDto{
-
-    @IsNumber()
-    @ApiProperty()
-    numberOfTables: number;
-
     @Type(() => DayDto)
     @ApiProperty()
     monday: DayDto;

@@ -1,9 +1,11 @@
-import { Prop, Schema } from "@nestjs/mongoose";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+
+export type ReservationDocument = Reservation & Document;
 
 @Schema()
 export class Reservation {
 
-    @Prop({required: true, unique: true})
+    @Prop({required: true})
     companyName: string;
 
     @Prop({required: true})
@@ -18,9 +20,11 @@ export class Reservation {
     @Prop({required: true})
     numberOfPeople: number;
 
-    @Prop({required: true})
+    @Prop({required: true, unique: true})
     email: string;
 
     @Prop()
     message: string;
 }
+
+export const ReservationSchema = SchemaFactory.createForClass(Reservation);

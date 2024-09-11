@@ -1,13 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsBoolean, IsDate, IsNumber, IsString } from "class-validator";
 
-export class reservationDto{
+export class ReservationDto{
     @IsString()
     @ApiProperty()
     companyName: string;
 
-    @IsBoolean()
-    @ApiProperty()
     isValid: boolean;
 
     @IsDate()

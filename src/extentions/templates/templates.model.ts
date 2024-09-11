@@ -31,9 +31,6 @@ export class Day{
 }
 @Schema({ _id: false, safe: false })
 export class RestaurantReservation{
-    @Prop()
-    numberOfTables: number;
-
     @Prop({type: Day})
     monday: Day;
 

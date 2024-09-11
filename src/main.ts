@@ -25,6 +25,7 @@ async function bootstrap() {
   
   app.use(json({ limit: '14mb' }));
   app.use(urlencoded({ extended: true, limit: '14mb' }));
+  
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
