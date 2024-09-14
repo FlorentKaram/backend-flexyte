@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, Injectable } from "@nestjs/common";
 import { ReservationDataGateway } from "../interface/reservation.interface";
 import { InjectModel } from "@nestjs/mongoose";
 import { ReservationDto } from "../dto/reservation.dto";
@@ -16,7 +16,7 @@ export class MongooseReservation implements ReservationDataGateway{
     validateReservation = async (companyName: string, email: string) =>{
         let reservation = await this.reservationModel.findOne({companyName: companyName, email: email});
         if(!reservation){
-            throw new Error("Reservation not found");
+            throw new HttpException("Reservation not found", 404);
         }
         reservation.status = "accepted";
         await reservation.save();

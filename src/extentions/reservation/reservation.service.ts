@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, Injectable } from "@nestjs/common";
 import { ReservationDto } from "./dto/reservation.dto";
 import { ReservationDataGateway } from "./interface/reservation.interface";
 
@@ -9,7 +9,7 @@ export class ReservationService {
     async createReservation(reservation: ReservationDto) {
         let check = await this.reservationDataGateway.findReservationWithEmail(reservation.companyName, reservation.email);
         if(check){
-            throw new Error("Reservation already exists");
+            throw new HttpException("Reservation already exists", 400);
         }
         reservation.status = "pending";
         return this.reservationDataGateway.createReservation(reservation);
