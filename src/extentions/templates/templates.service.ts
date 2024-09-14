@@ -61,4 +61,16 @@ export class TemplatesService {
             perPage: perPage
         }
     }
+
+    async buyExtension(companyName: string, buyExtensionDto){
+        let temp = await this.templateDataGateway.findOneTemplate(companyName);
+        if(!temp){
+            throw new NotFoundException();
+        }
+        temp.hasCarte = buyExtensionDto.hasCarte;
+        temp.hasTeamPresentation = buyExtensionDto.hasTeamPresentation;
+        temp.hasReservation = buyExtensionDto.hasReservation;
+        temp.hasClickNCollect = buyExtensionDto.hasClickNCollect;
+        return this.templateDataGateway.saveTemplate(temp);
+    }
 }

@@ -5,6 +5,7 @@ import { TemplatesService } from "./templates.service";
 import { TemplateDto } from "./dto/template.dto";
 import { FilterTemplatesDto } from "./dto/filterRestaurants.dto";
 import { log } from "console";
+import { BuyExtensionDto } from "./dto/buy-extension.dto";
 
 
 @ApiTags('Template')
@@ -42,5 +43,13 @@ export class TemplatesController {
     @Post('all')
     async findAllrestaurants(@Body() filter: FilterTemplatesDto) {
         return this.templatesService.getAllTemplates(filter);
+    }
+
+    @UseGuards(AccessTokenGuard)
+    @ApiBearerAuth('acces-token')
+    @ApiOperation({summary: 'Buy extension'})
+    @Post('buy')
+    async buyExtension(@Body() buyExtensionDto: BuyExtensionDto){
+        
     }
 }

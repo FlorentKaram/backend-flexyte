@@ -4,7 +4,7 @@ import { Document } from 'mongoose';
 export type TemplateDocument = Template & Document;
 
 @Schema({ _id: false, safe: false })
-export class Day{
+export class Day {
     @Prop()
     openLunchHours: string;
 
@@ -30,36 +30,36 @@ export class Day{
     closeDinnerMinutes: string;
 }
 @Schema({ _id: false, safe: false })
-export class RestaurantReservation{
-    @Prop({type: Day})
+export class RestaurantReservation {
+    @Prop({ type: Day })
     monday: Day;
 
-    @Prop({type: Day})
+    @Prop({ type: Day })
     tuesday: Day;
 
-    @Prop({type: Day})
+    @Prop({ type: Day })
     wednesday: Day;
 
-    @Prop({type: Day})
+    @Prop({ type: Day })
     thursday: Day;
 
-    @Prop({type: Day})
+    @Prop({ type: Day })
     friday: Day;
 
-    @Prop({type: Day})
+    @Prop({ type: Day })
     saturday: Day;
 
-    @Prop({type: Day})
+    @Prop({ type: Day })
     sunday: Day;
 }
 
 @Schema()
 export class Template {
 
-    @Prop({required: true,  default: 0})
+    @Prop({ required: true, default: 0 })
     templateNumber: number;
 
-    @Prop({required: true, unique: true})
+    @Prop({ required: true, unique: true })
     companyName: string;
 
     @Prop()
@@ -86,7 +86,19 @@ export class Template {
     @Prop()
     city: string;
 
-    @Prop({type: RestaurantReservation})
+    @Prop()
+    hasCarte: boolean;
+
+    @Prop()
+    hasReservation: boolean;
+
+    @Prop()
+    hasClickNCollect: boolean;
+
+    @Prop()
+    hasTeamPresentation: boolean;
+
+    @Prop({ type: RestaurantReservation })
     reservation: RestaurantReservation;
 
     @Prop({ default: false })
