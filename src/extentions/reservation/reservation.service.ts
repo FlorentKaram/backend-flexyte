@@ -11,7 +11,7 @@ export class ReservationService {
         if(check){
             throw new Error("Reservation already exists");
         }
-        reservation.isValid = false;
+        reservation.status = "pending";
         return this.reservationDataGateway.createReservation(reservation);
     }
     

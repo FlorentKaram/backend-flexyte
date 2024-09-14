@@ -2,14 +2,20 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 export type ReservationDocument = Reservation & Document;
 
+export enum Status {
+    ACCEPTED = 'accepted',
+    DECLINED = 'declined',
+    PENDING = 'pending',
+}
+
 @Schema()
 export class Reservation {
 
     @Prop({required: true})
     companyName: string;
 
-    @Prop({required: true})
-    isValid: boolean;
+    @Prop({enum: Status, default: Status.PENDING})
+    status: string;
 
     @Prop({required: true})
     date: string;

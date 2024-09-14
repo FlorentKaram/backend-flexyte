@@ -6,7 +6,7 @@ export class ReservationDto{
     @ApiProperty()
     companyName: string;
 
-    isValid: boolean;
+    status: string;
 
     @IsString()
     @ApiProperty()
