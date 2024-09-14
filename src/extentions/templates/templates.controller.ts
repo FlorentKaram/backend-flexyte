@@ -49,7 +49,7 @@ export class TemplatesController {
     @ApiBearerAuth('acces-token')
     @ApiOperation({summary: 'Buy extension'})
     @Post('buy')
-    async buyExtension(@Body() buyExtensionDto: BuyExtensionDto){
-        
+    async buyExtension(@Request() req, @Body() buyExtensionDto: BuyExtensionDto){
+        return this.templatesService.buyExtension(req.user.companyName, buyExtensionDto);
     }
 }
