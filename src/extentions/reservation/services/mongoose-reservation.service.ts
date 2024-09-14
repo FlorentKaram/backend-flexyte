@@ -19,7 +19,7 @@ export class MongooseReservation implements ReservationDataGateway{
             throw new Error("Reservation not found");
         }
         reservation.status = "validated";
-        reservation.save();
+        await this.reservationModel.updateOne({company: companyName, email: email}, reservation);
         return reservation;
     };
 
