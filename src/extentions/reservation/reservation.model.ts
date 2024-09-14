@@ -12,7 +12,7 @@ export class Reservation {
     isValid: boolean;
 
     @Prop({required: true})
-    date: Date;
+    date: string;
 
     @Prop({required: true})
     reservationPhone: string;

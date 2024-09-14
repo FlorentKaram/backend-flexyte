@@ -8,9 +8,9 @@ export class ReservationDto{
 
     isValid: boolean;
 
-    @IsDate()
+    @IsString()
     @ApiProperty()
-    date: Date;
+    date: string;
 
     @IsString()
     @ApiProperty()
