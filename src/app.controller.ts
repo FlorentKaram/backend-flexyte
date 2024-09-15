@@ -13,7 +13,7 @@ export class AppController {
     return [
       {
         name : "Affichage & Modification de la carte",
-        description : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+        description : "Cette extention vous permet de gerer votre carte de restaurant. Vous pouvez ajouter des plats, modifier les prix, les descriptions et les images.",
         price : 5,
         content : [
           "Edition de la carte",
@@ -23,7 +23,7 @@ export class AppController {
       },
       {
         name : "Reservation",
-        description : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+        description : "Cette extention vous permet de gerer les reservations de votre restaurant. Vous pouvez definir les horraires et les jours d'ouverture. Vous pouvez aussi valider ou refuser les reservations.",
         price : 7,
         content : [
           "Reservation sur place",
@@ -33,7 +33,7 @@ export class AppController {
       },
       {
         name : "Click and collect",
-        description : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+        description : "🔺 Toujours en cours de developpement 🔺",
         price : 20,
         content : [
           ""
@@ -41,7 +41,7 @@ export class AppController {
       },
       {
         name : "Présentation de l'équipe",
-        description : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+        description : "Cette extention vous permet de presenter votre equipe. Vous pouvez ajouter des membres et modifier leurs informations.",
         price : 3,
         content : [
           "Un template par membre",
