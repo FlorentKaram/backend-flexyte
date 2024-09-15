@@ -108,6 +108,11 @@ export class TemplateDto{
     @ApiProperty()
     city: string;
 
+
+    @IsString()
+    @ApiProperty()
+    image: string;
+
     @Type(() => restaurantReservationDto)
     @ApiProperty()
     @IsNotEmpty()

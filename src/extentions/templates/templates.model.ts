@@ -96,6 +96,9 @@ export class Template {
     hasClickNCollect: boolean;
 
     @Prop()
+    image: string;
+
+    @Prop()
     hasTeamPresentation: boolean;
 
     @Prop({ type: RestaurantReservation })
