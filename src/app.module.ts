@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TemplatesModule } from './extentions/templates/templates.module';
 import { DishModule } from './extentions/dishes/dishes.module';
 import { ReservationModule } from './extentions/reservation/reservation.module';
+import { TeamModule } from './extentions/team/team.module';
 
 
 @Module({
@@ -18,7 +19,8 @@ import { ReservationModule } from './extentions/reservation/reservation.module';
     RestaurantModule,
     TemplatesModule,
     DishModule,
-    ReservationModule
+    ReservationModule,
+    TeamModule
   ],
   controllers: [AppController],
   providers: [AppService],

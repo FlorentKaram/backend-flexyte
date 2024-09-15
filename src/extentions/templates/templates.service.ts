@@ -2,7 +2,6 @@ import { HttpException, HttpStatus, Injectable, NotFoundException } from "@nestj
 import { TemplateDto } from "./dto/template.dto";
 import { TemplateDataGateway } from "./interface/templates.interface";
 import { FilterTemplatesDto } from "./dto/filterRestaurants.dto";
-import { log } from "console";
 
 
 @Injectable()
