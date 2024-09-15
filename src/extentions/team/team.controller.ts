@@ -30,8 +30,8 @@ export class TeamController {
         @ApiBearerAuth('acces-token')
         @ApiOperation({ summary: 'Create a team' })
         @Post()
-        createTeam(companyName: string, teamDto: TeamDto) {      
-            return this.teamService.createTeam(companyName, teamDto);
+        createTeam(@Request() req, @Body() team: TeamDto) {      
+            return this.teamService.createTeam(req.user.companyName, team);
         }
 
         // Delete a team
@@ -39,7 +39,7 @@ export class TeamController {
         @ApiBearerAuth('acces-token')
         @ApiOperation({ summary: 'Delete a team' })
         @Delete()
-        deleteTeam(companyName: string) {
-            return this.teamService.deleteTeam(companyName);
+        deleteTeam(@Request() req) {
+            return this.teamService.deleteTeam(req.user.companyName);
         }
 }
