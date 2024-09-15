@@ -25,11 +25,11 @@ export class DishService {
 
     async update(companyName: string, id: string, dish: DishDto) {
         let dishtoUpdate = await this.dishesDataGateway.getOneDish(id);
-        if(dishtoUpdate.companyName != companyName){
-            throw new UnauthorizedException('you cannot modify other restaurants dishes')
-        }
         if (!dishtoUpdate) {
             throw new NotFoundException('Dish not found');
+        }
+        if(dishtoUpdate.companyName != companyName){
+            throw new UnauthorizedException('you cannot modify other restaurants dishes')
         }
         for (const [key, value] of Object.entries(dish)) {
             if(value){
@@ -41,11 +41,11 @@ export class DishService {
 
     async delete(companyName: string, id: string) {
         let dishtoDelete = await this.dishesDataGateway.getOneDish(id);
+        if(!dishtoDelete){
+            throw new NotFoundException('Dish not found');
+        }
         if(dishtoDelete.companyName != companyName){
             throw new UnauthorizedException('you cannot delete other restaurants dishes')
-        }
-        if(!await this.dishesDataGateway.getOneDish(id)){
-            throw new NotFoundException('Dish not found');
         }
         return this.dishesDataGateway.findAndDeleteDish(id);
     }
