@@ -15,8 +15,9 @@ Run mongodb server on port 27017
 Now you can clone the project and run the following commands:
   - Run `npm install` in the project folder
   - Run `npm run start:dev` in the project folder
-
+<br/>
 You can check if the server is running by going to http://localhost:3000/backendFlexyte/api
+<br>
 A root user for test has been create admin@admin.fr / admin
 <br/>
 
