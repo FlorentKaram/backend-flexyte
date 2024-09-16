@@ -1,12 +1,21 @@
-# before running the app
+# NestJS + TypeScript + MongoDB
 
-- make sure to npm install
-- you can set your own private key in src/auth/constant.ts. Any string is accepted.
-- you can create a .env file to set up your own first user with 
-  ROOT_USER and ROOT_USER_PASSWORD. If you dont, default values will be test@test.com and testpassword.
-  Of course you can change them directly after you first run with patch api.
-- make sure to have a mongodb running on port 27017 if you want to use an other port use .env file and add DB_URL
-- you can start the app with npm start or npm run start:dev for watch mode
+## Installation procedure for new team members
 
-# backendRestaurant
-# backendRestaurant
+If you are a new developer coming in the team, first of all WELCOME !!
+<br/>
+Before starting the code, you need to install [NodeJs](https://nodejs.org/en), [PNpm](https://pnpm.io/fr/) and [MongoDB](ttps://www.mongodb.com/docs/manual/installation/).
+<br/>
+Then we recommand you to use [Visual Studio Code](https://code.visualstudio.com/) has your IDE and [MongoDB Compass](https://www.mongodb.com/products/compass) to interact with the database.
+<br/>
+<br>
+Run mongodb server on port 27017
+<br/>
+<br>
+Clone the project
+Run `npm install` in the project folder
+Run `npm run start:dev` in the project folder
+You can check if the server is running by going to http://localhost:3000/backendFlexyte/api
+A root user for test has been create admin@admin.fr / admin
+<br/>
+
