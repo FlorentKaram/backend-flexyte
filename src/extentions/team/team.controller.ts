@@ -29,7 +29,7 @@ export class TeamController {
         @UseGuards(AccessTokenGuard)
         @ApiBearerAuth('acces-token')
         @ApiOperation({ summary: 'Create a team' })
-        @Post(':id')
+        @Post()
         createTeam(@Request() req, @Body() team: TeamDto) {      
             return this.teamService.createTeam(req.user.companyName, team);
         }
