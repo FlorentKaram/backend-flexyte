@@ -1,10 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { TemplateDataGateway } from "../interface/templates.interface";
 import { TemplateDto } from "../dto/template.dto";
-import { Template } from "../templates.model";
+import { RestaurantReservation, Template } from "../templates.model";
 import { HydratedDocument, Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 import { FilterTemplatesDto } from "../dto/filterRestaurants.dto";
+import { Reservation } from "src/extentions/reservation/reservation.model";
 
 
 @Injectable()
@@ -12,7 +13,79 @@ export class MongooseTemplate implements TemplateDataGateway{
     constructor(@InjectModel('templates') private readonly templateModel: Model<Template>) { }
 
     createTemplate = async (companyName: string, templateNumber: number) => {
-        return this.templateModel.create({companyName: companyName, templateNumber: templateNumber, isLocked: false});
+        let reservation: RestaurantReservation = {
+            monday: {
+                openLunchHours: "",
+                openLunchMinutes: "",
+                closeLunchHours: "",
+                closeLunchMinutes: "",
+                openDinnerHours: "",
+                openDinnerMinutes: "",
+                closeDinnerHours: "",
+                closeDinnerMinutes: ""
+            },
+            tuesday: {
+                openLunchHours: "",
+                openLunchMinutes: "",
+                closeLunchHours: "",
+                closeLunchMinutes: "",
+                openDinnerHours: "",
+                openDinnerMinutes: "",
+                closeDinnerHours: "",
+                closeDinnerMinutes: ""
+            },
+            wednesday: {
+                openLunchHours: "",
+                openLunchMinutes: "",
+                closeLunchHours: "",
+                closeLunchMinutes: "",
+                openDinnerHours: "",
+                openDinnerMinutes: "",
+                closeDinnerHours: "",
+                closeDinnerMinutes: ""
+            },
+            thursday: {
+                openLunchHours: "",
+                openLunchMinutes: "",
+                closeLunchHours: "",
+                closeLunchMinutes: "",
+                openDinnerHours: "",
+                openDinnerMinutes: "",
+                closeDinnerHours: "",
+                closeDinnerMinutes: ""
+            },
+            friday: {
+                openLunchHours: "",
+                openLunchMinutes: "",
+                closeLunchHours: "",
+                closeLunchMinutes: "",
+                openDinnerHours: "",
+                openDinnerMinutes: "",
+                closeDinnerHours: "",
+                closeDinnerMinutes: ""
+            },
+            saturday: {
+                openLunchHours: "",
+                openLunchMinutes: "",
+                closeLunchHours: "",
+                closeLunchMinutes: "",
+                openDinnerHours: "",
+                openDinnerMinutes: "",
+                closeDinnerHours: "",
+                closeDinnerMinutes: ""
+            },
+            sunday: {
+                openLunchHours: "",
+                openLunchMinutes: "",
+                closeLunchHours: "",
+                closeLunchMinutes: "",
+                openDinnerHours: "",
+                openDinnerMinutes: "",
+                closeDinnerHours: "",
+                closeDinnerMinutes: ""
+            }
+        }
+        return this.templateModel.create({companyName: companyName, templateNumber: templateNumber, reservation: reservation ,isLocked: false});
     
     };
 
