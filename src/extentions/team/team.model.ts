@@ -15,6 +15,8 @@ export class Team {
 
     @Prop()
     image: string;
+
+    _id: string;
 }
 
 export const TeamSchema = SchemaFactory.createForClass(Team);

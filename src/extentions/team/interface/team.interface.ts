@@ -6,7 +6,7 @@ export abstract class TeamDataGateway {
 
     getAllTeam: (companyName: string) => Promise<Team[]>;
 
-    updateTeam: (companyName: string, teamDto: TeamDto) => Promise<Team>;
+    updateTeam: (companyName: string, id: string, teamDto: TeamDto) => Promise<Team>;
 
-    deleteTeam: (companyName: string) => Promise<any>;
+    deleteTeam: (companyName: string, id: string) => Promise<any>;
 }

@@ -15,11 +15,11 @@ export class TeamService {
         return this.teamDataGateway.getAllTeam(companyName);
     }
 
-    async updateTeam(companyName: string, teamDto: TeamDto): Promise<Team> {
-        return this.teamDataGateway.updateTeam(companyName, teamDto);
+    async updateTeam(companyName: string, id: string, teamDto: TeamDto): Promise<Team> {
+        return this.teamDataGateway.updateTeam(companyName, id, teamDto);
     }
 
-    async deleteTeam(companyName: string): Promise<any> {
-        return this.teamDataGateway.deleteTeam(companyName);
+    async deleteTeam(companyName: string, id: string): Promise<any> {
+        return this.teamDataGateway.deleteTeam(companyName, id);
     }
 }

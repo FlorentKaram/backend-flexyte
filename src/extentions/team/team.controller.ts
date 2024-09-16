@@ -13,9 +13,9 @@ export class TeamController {
         @UseGuards(AccessTokenGuard)
         @ApiBearerAuth('acces-token')
         @ApiOperation({ summary: 'Patch team data' })
-        @Patch()
-        async updateTeam(@Request() req, @Body() team: TeamDto) {
-            return this.teamService.updateTeam(req.user.companyName, team);
+        @Patch(':id')
+        async updateTeam(@Request() req, @Body() team: TeamDto, @Param('id') id: string) {
+            return this.teamService.updateTeam(req.user.companyName, id, team);
         }
 
         // Get team
@@ -29,7 +29,7 @@ export class TeamController {
         @UseGuards(AccessTokenGuard)
         @ApiBearerAuth('acces-token')
         @ApiOperation({ summary: 'Create a team' })
-        @Post()
+        @Post(':id')
         createTeam(@Request() req, @Body() team: TeamDto) {      
             return this.teamService.createTeam(req.user.companyName, team);
         }
@@ -38,8 +38,8 @@ export class TeamController {
         @UseGuards(AccessTokenGuard)
         @ApiBearerAuth('acces-token')
         @ApiOperation({ summary: 'Delete a team' })
-        @Delete()
-        deleteTeam(@Request() req) {
-            return this.teamService.deleteTeam(req.user.companyName);
+        @Delete(':id')
+        deleteTeam(@Request() req, @Param('id') id: string) {
+            return this.teamService.deleteTeam(req.user.companyName, id);
         }
 }

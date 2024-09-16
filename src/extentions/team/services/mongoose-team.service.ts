@@ -18,12 +18,12 @@ export class MongooseTeamService implements TeamDataGateway{
         return this.teamModel.find({companyName: companyName});
     };
 
-    updateTeam = async (companyName: string, teamDto: TeamDto) => {
-        return this.teamModel.findOneAndUpdate({companyName: companyName}, teamDto);
+    updateTeam = async (companyName: string, id: string, teamDto: TeamDto) => {
+        return this.teamModel.findOneAndUpdate({companyName: companyName, _id: id}, teamDto);
     };
 
-    deleteTeam = async (companyName: string) => {
+    deleteTeam = async (companyName: string, id: string) => {
         return this.teamModel.deleteOne({companyName
-        : companyName});
+        : companyName, _id: id});
     }
 }
