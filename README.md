@@ -4,7 +4,7 @@
 
 If you are a new developer coming in the team, first of all WELCOME !!
 <br/>
-Before starting the code, you need to install [NodeJs](https://nodejs.org/en) and [MongoDB](ttps://www.mongodb.com/docs/manual/installation/).
+Before starting the code, you need to install [NodeJs](https://nodejs.org/en), [NestJS](https://docs.nestjs.com/) and [MongoDB](ttps://www.mongodb.com/docs/manual/installation/).
 <br/>
 Then we recommand you to use [Visual Studio Code](https://code.visualstudio.com/) has your IDE and [MongoDB Compass](https://www.mongodb.com/products/compass) to interact with the database.
 <br/>
